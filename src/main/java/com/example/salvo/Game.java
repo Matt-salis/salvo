@@ -1,6 +1,4 @@
 
-
-
 package com.example.salvo;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -10,32 +8,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Player {
+public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
 
-    private String userName;
+    private String date;
 
-    public Player() { }
+    public Game() { }
 
-    public Player(String userName) {
-        this.userName = userName;
+    public Game(String date) {
+        this.date = date;
     }
 
-    public String getUserName() {
-        return userName;
+
+    public String getDate() {
+        return date;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String toString() {
-        return userName;
+        return date;
     }
-
 }
 

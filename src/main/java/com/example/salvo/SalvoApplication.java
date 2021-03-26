@@ -4,10 +4,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 @SpringBootApplication
 public class SalvoApplication {
@@ -16,24 +14,31 @@ public class SalvoApplication {
         SpringApplication.run(SalvoApplication.class);
     }
 
-    LocalDateTime dateTime = LocalDateTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-
     @Bean
-    public CommandLineRunner initPlayers(PlayerRepository playerRepository, GameRepository gameRepository) {
+    public CommandLineRunner initPlayers(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository) {
         return (args) -> {
-            // save a couple of customers
-            playerRepository.save(new Player("j.bauer@ctu.gov"));
-            playerRepository.save(new Player("c.obrian@ctu.gov"));
-            playerRepository.save(new Player("kim_bauer@gmail.com"));
+
+            Game game1 = new Game(LocalDateTime.now());
+            Game game2 = new Game(LocalDateTime.now());
+            Player player1 = new Player("j.bauer@ctu.gov");
+            Player player2 = new Player("c.obrian@ctu.gov");
+            Player player3 = new Player("kim_bauer@gmail.com");
+
+            playerRepository.save(player1);
+            playerRepository.save(player2);
+            playerRepository.save(player3);;
             playerRepository.save(new Player("t.almeida@ctu.gov"));
 
-            gameRepository.save(new Game(dateTime.format(formatter)));
-            gameRepository.save(new Game("20/03/2021"));
-            gameRepository.save(new Game("21/03/2021"));
+            gameRepository.save(game1);
+            gameRepository.save(game2);
+
+
+            gamePlayerRepository.save(new GamePlayer(LocalDateTime.now(), game1, player1));
+            gamePlayerRepository.save(new GamePlayer(LocalDateTime.now(), game1, player2));
+            gamePlayerRepository.save(new GamePlayer(LocalDateTime.now(), game2, player3));
+            gamePlayerRepository.save(new GamePlayer(LocalDateTime.now(), game2, player2));
 
         };
     }
-
 }
 

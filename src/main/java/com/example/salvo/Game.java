@@ -1,11 +1,11 @@
-
 package com.example.salvo;
 
 import org.hibernate.annotations.GenericGenerator;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+import static java.util.stream.Collectors.toList;
 
 @Entity
 public class Game {
@@ -15,25 +15,50 @@ public class Game {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
 
-    private String date;
+    private LocalDateTime date;
+
+    @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
+    Set<GamePlayer> gamePlayers;
+
 
     public Game() { }
 
-    public Game(String date) {
+    public Game(LocalDateTime date) {
         this.date = date;
     }
 
+    public void addGamePlayer(GamePlayer gamePlayer) {
+        gamePlayer.setGame(this);
+        gamePlayers.add(gamePlayer);
+    }
 
-    public String getDate() {
+
+    public List<Player> getPlayers() {
+        return gamePlayers.stream().map(sub -> sub.getPlayer()).collect(toList());
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
-    public String toString() {
-        return date;
+    public Set<GamePlayer> getGamePlayers() {
+        return gamePlayers;
+    }
+
+    public void setGamePlayers(Set<GamePlayer> gamePlayers) {
+        this.gamePlayers = gamePlayers;
     }
 }
 

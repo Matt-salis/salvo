@@ -8,12 +8,11 @@ fetch('http://localhost:8080/api/games')
 
     })
 
+
 var app = new Vue({
     el: '#app',
     data: {
-        games: [{
-        gamePlayers:[]
-        }]
+        games: []
 
     }
 })

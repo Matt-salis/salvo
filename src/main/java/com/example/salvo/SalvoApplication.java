@@ -19,7 +19,7 @@ public class SalvoApplication {
         return (args) -> {
 
             Game game1 = new Game(LocalDateTime.now());
-            Game game2 = new Game(LocalDateTime.now());
+            Game game2 = new Game(LocalDateTime.now().plusHours(1));
             Player player1 = new Player("j.bauer@ctu.gov");
             Player player2 = new Player("c.obrian@ctu.gov");
             Player player3 = new Player("kim_bauer@gmail.com");

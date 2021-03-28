@@ -12,9 +12,8 @@
     <ol>
         <div v-for="game in games">
             <li>{{game.date}}</li>
-            <ul>
-                <li v-if="game.gamePlayer[0] != null">{{game.gamePlayer[0].Player.email}}</li>
-                <li v-if="game.gamePlayer[1] != null">{{game.gamePlayer[1].Player.email}}</li>
+            <ul v-for="gamePlayer in game.gamePlayers">
+               <li>{{gamePlayer.player.email}}</li>
             </ul>
         </div>
 

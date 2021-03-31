@@ -44,10 +44,12 @@ public class SalvoApplication {
             Ship ship2 = new Ship(gamePlayer1,"Patrol", List.of("J2", "J3") );
             Ship ship3 = new Ship(gamePlayer1,"Battleship", List.of("A2","B2","C2","D2") );
             Ship ship4 = new Ship(gamePlayer1,"Submarine", List.of("C8","D8","E8") );
-            Ship ship5 = new Ship(gamePlayer2,"Destroyer", List.of("B3","B4","B5") );
-            Ship ship6 = new Ship(gamePlayer2,"Patrol", List.of("A1","B1") );
-            Ship ship7 = new Ship(gamePlayer2,"Battleship", List.of("E5","E6","E7","E8") );
-            Ship ship8 = new Ship(gamePlayer2,"Submarine", List.of("G1","H1","I1") );
+            Ship ship5 = new Ship(gamePlayer1,"Carrier", List.of("F2","F3","F4","F5","F6") );
+            Ship ship6 = new Ship(gamePlayer2,"Destroyer", List.of("B3","B4","B5") );
+            Ship ship7 = new Ship(gamePlayer2,"Patrol", List.of("A1","B1") );
+            Ship ship8 = new Ship(gamePlayer2,"Battleship", List.of("E5","E6","E7","E8") );
+            Ship ship9 = new Ship(gamePlayer2,"Submarine", List.of("G1","H1","I1") );
+            Ship ship10 = new Ship(gamePlayer2,"Carrier", List.of("E3","F3","G3","H3","I3") );
             shipRepository.save(ship1);
             shipRepository.save(ship2);
             shipRepository.save(ship3);
@@ -56,6 +58,9 @@ public class SalvoApplication {
             shipRepository.save(ship6);
             shipRepository.save(ship7);
             shipRepository.save(ship8);
+            shipRepository.save(ship9);
+            shipRepository.save(ship10);
+
 
         };
     }

@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.DoubleStream;
 
@@ -71,8 +72,8 @@ public class GamePlayer {
                 this.date = date;
         }
 
-
-        public DoubleStream stream() {
+        public Set<Ship> getShips() {
+                return ships;
         }
 }
 

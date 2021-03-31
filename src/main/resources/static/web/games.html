@@ -10,13 +10,13 @@
 <div id="app">
 <nav>
     <ol>
-        <div v-for="game in games">
-            <li>{{game.date}}</li>
-            <ul v-for="gamePlayer in game.gamePlayers">
-               <li>{{gamePlayer.player.email}}</li>
-            </ul>
-        </div>
-
+        <li v-for="game in games">
+            {{game.date}}
+        <ul v-for="gamePlayer in game.gamePlayers">
+            <li>{{gamePlayer.player.email}}</li>
+        </ul>
+        </li>
+        <li v-for="ship"></li>
     </ol>
 
 

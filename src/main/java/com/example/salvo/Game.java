@@ -32,33 +32,20 @@ public class Game {
         gamePlayers.add(gamePlayer);
     }
 
-
-    public List<Player> getPlayers() {
-        return gamePlayers.stream().map(sub -> sub.getPlayer()).collect(toList());
-    }
-
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
 
     public Set<GamePlayer> getGamePlayers() {
         return gamePlayers;
     }
 
-    public void setGamePlayers(Set<GamePlayer> gamePlayers) {
-        this.gamePlayers = gamePlayers;
-    }
+
 }
 

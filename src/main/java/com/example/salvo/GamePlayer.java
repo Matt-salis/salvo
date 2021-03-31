@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.DoubleStream;
 
 @Entity
 public class GamePlayer {
@@ -20,6 +22,9 @@ public class GamePlayer {
         @JoinColumn(name="game_id")
         private Game game;
 
+        @OneToMany(mappedBy ="gamePlayer", fetch = FetchType.EAGER)
+        Set<Ship> ships;
+
         private LocalDateTime date;
 
         public GamePlayer(){}
@@ -28,6 +33,10 @@ public class GamePlayer {
                 this.date = date;
                 this.player = player1;
                 this.game = game1;
+        }
+
+        public void addShip(Ship ship) {
+                ship.setGamePlayer(this);
         }
 
         public long getId() {
@@ -61,7 +70,12 @@ public class GamePlayer {
         public void setDate(LocalDateTime date) {
                 this.date = date;
         }
+
+
+        public DoubleStream stream() {
+        }
 }
+
 
 
 

@@ -17,12 +17,27 @@ public class SalvoController {
     @Autowired
     GameRepository gameRepository;
 
+   // @Autowired
+   // ShipRepository shipRepository;
+//
+   // @RequestMapping("/game_view")
+   // public List<Map<String, Object> getAllBoards(){
+   //     return shipRepository.findAll().stream().map(this::makeShipDTO).collect(toList());
+   // }
+   // private Map<String, Object> makeShipDTO(Ship ship) {
+   //     Map<String, Object> dto = new LinkedHashMap<String, Object>();
+   //     dto.put("id", ship.getId());
+   //     dto.put("locations", ship.getLocations());
+   //     dto.put("shipType", ship.getType());
+   //     dto.put("gamePlayers", ship.getGamePlayer().stream().map(this::makeGamePlayerDTO).collect(toList()));
+   //     return dto;
+   // }
+
 
     @RequestMapping("/games")
     public  List<Map<String, Object>> getAllGames(){
         return gameRepository.findAll().stream().map(this::makeGameDTO).collect(toList());
     }
-
     private Map<String, Object> makeGameDTO(Game game) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("id", game.getId());

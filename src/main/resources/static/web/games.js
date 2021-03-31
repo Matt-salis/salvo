@@ -14,5 +14,6 @@ var app = new Vue({
     data: {
         games: []
 
+
     }
 })

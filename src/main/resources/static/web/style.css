@@ -1,0 +1,19 @@
+table, td, th {
+    border: 1px solid black;
+}
+td{
+    outline: 1px solid;
+}
+table{
+    text-align: center;
+}
+td, th {
+    width: 30px;
+    border: 1px solid black;
+}
+#empty{
+    background-color: grey;
+}
+.ship{
+    background-color: blue;
+}

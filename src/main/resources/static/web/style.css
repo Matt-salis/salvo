@@ -1,19 +1,49 @@
-table, td, th {
-    border: 1px solid black;
-}
-td{
-    outline: 1px solid;
-}
-table{
+#app{
     text-align: center;
 }
-td, th {
-    width: 30px;
+
+.container{
+    font-family: 'Press Start 2P', cursive;
+}
+
+
+table,
+td,
+th {
     border: 1px solid black;
 }
-#empty{
-    background-color: grey;
+
+td {
+    outline: 1px solid;
 }
-.ship{
+
+
+td,
+th {
+    width: 50px;
+    height: 50px;
+}
+
+#empty {
+    background-color: rgb(180, 180, 180);
+}
+
+.ship1 {
+    background-color: red;
+}
+
+.ship0 {
     background-color: blue;
+}
+
+.ship2 {
+    background-color: green;
+}
+
+.ship3 {
+    background-color: rgb(122, 255, 255);
+}
+
+.ship4 {
+    background-color: pink;
 }

@@ -1,55 +1,23 @@
-
 const urlParams = new URLSearchParams(window.location.search);
 const gp = urlParams.get('gp');
-console.log(gp)
-var barco = []
+console.log(gp);
+var g = parseInt(gp)
+
 
 fetch('http://localhost:8080/api/game_view/' + gp)
-    .then(function(respuesta) {
+    .then(function (respuesta) {
         return respuesta.json();
     })
-    .then(function(data) {
+    .then(function (data) {
 
         console.log(data)
-       app.game_view = data;
+        app.gameView = data;
+        app.paintLocations();
+        app.playerIndex();
 
     })
-    .then(function(tipo){
-        function compare( a, b ) {
-            if ( a.type < b.type ){
-              return -1;
-            }
-            if ( a.type > b.type ){
-              return 1;
-            }
-            return 0;
-          }
-          
-        barco = app.game_view[0].ships.sort( compare )
-    })
-    .then(function(color){
-        for(i=0; i<barco[0].locations.length; i++){
-            document.getElementById(barco[0].locations[i]).classList.toggle("ship");
-            
-        }
-        for(i=0; i<barco[1].locations.length; i++){
-            document.getElementById(barco[1].locations[i]).classList.toggle("ship");
-            
-        }
-        for(i=0; i<barco[2].locations.length; i++){
-            document.getElementById(barco[2].locations[i]).classList.toggle("ship");
-            
-        }
-        for(i=0; i<barco[3].locations.length; i++){
-            document.getElementById(barco[3].locations[i]).classList.toggle("ship");
-            
-        }
-        for(i=0; i<barco[4].locations.length; i++){
-            document.getElementById(barco[4].locations[i]).classList.toggle("ship");
-            
-        }
-
-    })
+   
+   
 
 
 
@@ -57,17 +25,29 @@ fetch('http://localhost:8080/api/game_view/' + gp)
 var app = new Vue({
     el: '#app',
     data: {
-        game_view: [],
-        columns: [1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10],
-        rows: ["A","B","C","D","E","F","G","H","I","J"],
-
+        gameView: [],
+        columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        rows: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
+        currentPlayer: "",
+        currentAdversary: "",
     },
+    methods: {
+        paintLocations: function () {
+            for (x = 0; x < app.gameView.ships.length; x++) {
+                for (i = 0; i < app.gameView.ships[x].locations.length; i++) {
+                    document.getElementById(app.gameView.ships[x].locations[i]).classList.toggle("ship" + x);
+                }
+            }
 
+        },
+        playerIndex: function () {
+            var g = parseInt(gp)
+            var gamer = app.gameView.gamePlayers.find(em => em.id == g)
+            var adversary = app.gameView.gamePlayers.find(em => em.id != g)
+            console.log("jugador actual " + gamer.player.email)
+            app.currentPlayer = gamer.player;
+            app.currentAdversary = adversary.player;
+        }
+    }
 
 })
-
-
-// document.getElementById('A1').classList.toggle("ship");
-// document.getElementById('A2').classList.toggle("ship");
-// document.getElementById('A3').classList.toggle("ship");
-

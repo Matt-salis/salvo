@@ -28,22 +28,17 @@ th {
     background-color: rgb(180, 180, 180);
 }
 
-.ship1 {
-    background-color: red;
-}
-
-.ship0 {
+.ship {
     background-color: blue;
 }
 
-.ship2 {
-    background-color: green;
+.salvo{
+    outline: 2px solid red;
+    background-image: url('https://amayei.nyc3.digitaloceanspaces.com/2021/03/730cbf2e2455c64c961be8e18e793f6b_3-Things-a-Fire-Needs-2000-c-90.jpg');
+    background-size: contain;
+    color: white; 
 }
-
-.ship3 {
-    background-color: rgb(122, 255, 255);
-}
-
-.ship4 {
-    background-color: pink;
+.salvoAdversary{
+    outline: 2px solid red;
+    color: red; 
 }

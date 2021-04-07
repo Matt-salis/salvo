@@ -5,16 +5,15 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
-public class Ship {
+public class Salvo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
 
-    private String type;
+    private Integer turn;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="gamePlayer_id")
@@ -25,15 +24,14 @@ public class Ship {
     private List<String> locations = new ArrayList<>();
 
 
-    public Ship() {
+    public Salvo() {
     }
 
-    public Ship(GamePlayer gamePlayer, String type, List<String> locations ) {
+    public Salvo(GamePlayer gamePlayer, Integer turn, List<String> locations ) {
         this.gamePlayer = gamePlayer;
-        this.type = type;
+        this.turn = turn;
         this.locations = locations;
     }
-
 
     public long getId() {
         return id;
@@ -43,30 +41,27 @@ public class Ship {
         this.id = id;
     }
 
+    public Integer getTurn() {
+        return turn;
+    }
+
+    public void setTurn(Integer turn) {
+        this.turn = turn;
+    }
+
     public GamePlayer getGamePlayer() {
         return gamePlayer;
     }
 
-
     public void setGamePlayer(GamePlayer gamePlayer) {
         this.gamePlayer = gamePlayer;
-    }
-
-
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        type = type;
     }
 
     public List<String> getLocations() {
         return locations;
     }
 
-    public void setLocations(ArrayList<String> locations) {
+    public void setLocations(List<String> locations) {
         this.locations = locations;
     }
 }

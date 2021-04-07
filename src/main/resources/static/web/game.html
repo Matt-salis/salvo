@@ -33,6 +33,19 @@
                     </tr>
                 </table>
             </div>
+            <div class="col-6">
+                <table>
+                    <tr>
+                        <td id="empty"></td>
+                        <th v-for="column in columns">{{column}}</th>
+                    </tr>
+                    <tr v-for="row in rows2">
+                        <th>{{row}}</th>
+                        <td v-for="column in columns" v-bind:id="row + column"></td>
+                    </tr>
+                </table>
+
+            </div>
         </div>
 
 

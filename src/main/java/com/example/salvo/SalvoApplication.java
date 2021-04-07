@@ -16,7 +16,7 @@ public class SalvoApplication {
     }
 
     @Bean
-    public CommandLineRunner initPlayers(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository,ShipRepository shipRepository) {
+    public CommandLineRunner initPlayers(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository,ShipRepository shipRepository,SalvoRepository salvoRepository) {
         return (args) -> {
 
             Game game1 = new Game(LocalDateTime.now());
@@ -61,6 +61,14 @@ public class SalvoApplication {
             shipRepository.save(ship9);
             shipRepository.save(ship10);
 
+            Salvo salvo1 = new Salvo(gamePlayer1, 1, List.of("G3","F1","A6","D2","E1"));
+            Salvo salvo2 = new Salvo(gamePlayer2, 1, List.of("E5","H1","G3","I3","F3"));
+            Salvo salvo3 = new Salvo(gamePlayer1, 2, List.of("A2","A4","G6","A3","H6"));
+            Salvo salvo4 = new Salvo(gamePlayer2, 2, List.of("E1","H3","A7","C5","C6"));
+            salvoRepository.save(salvo1);
+            salvoRepository.save(salvo2);
+            salvoRepository.save(salvo3);
+            salvoRepository.save(salvo4);
 
         };
     }

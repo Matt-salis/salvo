@@ -1,4 +1,4 @@
-package com.example.salvo;
+package com.mindhub.salvo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

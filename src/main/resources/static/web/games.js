@@ -7,9 +7,8 @@ var app = new Vue({
             numberOfWins: 0,
             numberOfLost: 0,
             numberOfTies: 0,
-            player1: [],
-            player2: [],
-            player3: [],
+            emails: [],
+            
 
         },
         methods: {
@@ -27,23 +26,20 @@ fetch('http://localhost:8080/api/games')
 
         app.games = data;
         console.log(app.games);
-        puntaje();
-        console.log(app.leaderBoard.player1);
-        console.log(
-            app.leaderBoard.player1.reduce((a, b) => a + b, 0)
-        )
-        console.log(app.leaderBoard.player2);
-        console.log(app.leaderBoard.player3);
+        players();
     })
 
-function puntaje() {
 
-    for (i = 0; i < app.games.length; i++) {
-        for (x = 0; x < app.games[i].gamePlayers.length; x++) {
-            if (app.games[i].gamePlayers[x].player.id == 1) {
-                app.leaderBoard.player1.push(app.games[i].gamePlayers[x].score);
+
+    function players(){
+        for(var i = 0; i < app.games.length; i++){
+            for(j=0; j < app.games[i].gamePlayers.length; j++){
+                if(!app.leaderBoard.emails.includes(app.games[i].gamePlayers[j].player.email)){
+                    app.leaderBoard.emails.push(app.games[i].gamePlayers[j].player.email);  
+                }
             }
         }
+        console.log(app.leaderBoard.emails);
     }
-}
 
+    function score() 

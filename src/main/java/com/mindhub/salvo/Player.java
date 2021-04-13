@@ -1,4 +1,4 @@
-package com.example.salvo;
+package com.mindhub.salvo;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -77,7 +77,7 @@ public class Player {
     }
 
     public Optional<Score> getScore(Game game){
-        return getScores().stream().filter(p -> p.getGame().equals(game)).findFirst();
+        return this.scores.stream().filter(p -> p.getGame().equals(game)).findFirst();
     }
 }
 

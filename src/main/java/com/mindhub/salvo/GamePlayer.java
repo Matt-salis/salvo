@@ -1,13 +1,11 @@
-package com.example.salvo;
+package com.mindhub.salvo;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.DoubleStream;
 
 @Entity
 public class GamePlayer {

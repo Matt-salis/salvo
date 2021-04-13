@@ -1,11 +1,9 @@
-package com.example.salvo;
+package com.mindhub.salvo;
 
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
-import static java.util.stream.Collectors.toList;
 
 @Entity
 public class Game {

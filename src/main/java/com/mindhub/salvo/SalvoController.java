@@ -1,4 +1,4 @@
-package com.example.salvo;
+package com.mindhub.salvo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -81,14 +81,6 @@ public class SalvoController {
         return dto;
     }
 
-    /*private Map<String, Object> makeScoreDTO(Score score){
-        Map<String, Object> dto =  new LinkedHashMap<String, Object>();
-        dto.put("finishDate", score.getDate());
-        dto.put("gameId", score.getGame().getId());
-        dto.put("playerId", score.getPlayer().getId());
-        dto.put("points", score.getScores());
-        return dto;
-     }*/
 
 }
 

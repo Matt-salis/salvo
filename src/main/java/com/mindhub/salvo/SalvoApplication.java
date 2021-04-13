@@ -1,4 +1,4 @@
-package com.example.salvo;
+package com.mindhub.salvo;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

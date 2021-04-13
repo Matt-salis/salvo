@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.DoubleStream;
 
@@ -41,6 +42,10 @@ public class GamePlayer {
 
         public void addShip(Ship ship) {
                 ship.setGamePlayer(this);
+        }
+
+        public Optional<Score> getScore(){
+                return player.getScore(game);
         }
 
         public long getId() {

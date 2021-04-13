@@ -16,16 +16,26 @@ public class SalvoApplication {
     }
 
     @Bean
-    public CommandLineRunner initPlayers(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository,ShipRepository shipRepository,SalvoRepository salvoRepository) {
+    public CommandLineRunner initPlayers(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository,ShipRepository shipRepository,SalvoRepository salvoRepository, ScoreRepository scoreRepository) {
         return (args) -> {
 
             Game game1 = new Game(LocalDateTime.now());
             Game game2 = new Game(LocalDateTime.now().plusHours(1));
+            Game game3 = new Game(LocalDateTime.now().plusHours(2));
+            Game game4 = new Game(LocalDateTime.now().plusHours(3));
+            Game game5 = new Game(LocalDateTime.now().plusHours(4));
+
             Player player1 = new Player("j.bauer@ctu.gov");
             Player player2 = new Player("c.obrian@ctu.gov");
             Player player3 = new Player("kim_bauer@gmail.com");
             GamePlayer gamePlayer1 = new GamePlayer(LocalDateTime.now(), game1, player1);
             GamePlayer gamePlayer2 = new GamePlayer(LocalDateTime.now(), game1, player2);
+            GamePlayer gamePlayer3 = new GamePlayer(LocalDateTime.now(), game4, player1);
+            GamePlayer gamePlayer4 = new GamePlayer(LocalDateTime.now(), game4, player2);
+            GamePlayer gamePlayer5 = new GamePlayer(LocalDateTime.now(), game3, player1);
+            GamePlayer gamePlayer6 = new GamePlayer(LocalDateTime.now(), game3, player2);
+            GamePlayer gamePlayer7 = new GamePlayer(LocalDateTime.now(), game5, player1);
+            GamePlayer gamePlayer8 = new GamePlayer(LocalDateTime.now(), game5, player3);
 
             playerRepository.save(player1);
             playerRepository.save(player2);
@@ -34,9 +44,18 @@ public class SalvoApplication {
 
             gameRepository.save(game1);
             gameRepository.save(game2);
+            gameRepository.save(game3);
+            gameRepository.save(game4);
+            gameRepository.save(game5);
 
             gamePlayerRepository.save(gamePlayer1);
             gamePlayerRepository.save(gamePlayer2);
+            gamePlayerRepository.save(gamePlayer3);
+            gamePlayerRepository.save(gamePlayer4);
+            gamePlayerRepository.save(gamePlayer5);
+            gamePlayerRepository.save(gamePlayer6);
+            gamePlayerRepository.save(gamePlayer7);
+            gamePlayerRepository.save(gamePlayer8);
             gamePlayerRepository.save(new GamePlayer(LocalDateTime.now(), game2, player3));
             gamePlayerRepository.save(new GamePlayer(LocalDateTime.now(), game2, player2));
 
@@ -69,6 +88,23 @@ public class SalvoApplication {
             salvoRepository.save(salvo2);
             salvoRepository.save(salvo3);
             salvoRepository.save(salvo4);
+
+            Score score1 = new Score(LocalDateTime.now().plusMinutes(30), player1, game1, 1.0 );
+            Score score2 = new Score(LocalDateTime.now().plusMinutes(30), player2, game1, 0.0 );
+            Score score3 = new Score(LocalDateTime.now().plusMinutes(90), player2, game2, 1.0 );
+            Score score4 = new Score(LocalDateTime.now().plusMinutes(90), player3, game2, 0.0 );
+            Score score5 = new Score(LocalDateTime.now().plusMinutes(150), player1, game3, 0.5 );
+            Score score6 = new Score(LocalDateTime.now().plusMinutes(150), player2, game3, 0.5 );
+            Score score7 = new Score(LocalDateTime.now().plusMinutes(210), player1, game4, 0.5 );
+            Score score8 = new Score(LocalDateTime.now().plusMinutes(210), player2, game4, 0.5 );
+            scoreRepository.save(score1);
+            scoreRepository.save(score2);
+            scoreRepository.save(score3);
+            scoreRepository.save(score4);
+            scoreRepository.save(score5);
+            scoreRepository.save(score6);
+            scoreRepository.save(score7);
+            scoreRepository.save(score8);
 
         };
     }

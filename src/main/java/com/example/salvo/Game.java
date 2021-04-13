@@ -20,6 +20,9 @@ public class Game {
     @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
     Set<GamePlayer> gamePlayers;
 
+    @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
+    Set<Score> score;
+
 
     public Game() { }
 
@@ -31,6 +34,11 @@ public class Game {
         gamePlayer.setGame(this);
         gamePlayers.add(gamePlayer);
     }
+
+    public void addScore(Score score) {
+        score.setGame(this);
+    }
+
 
     public long getId() {
         return id;
@@ -46,6 +54,24 @@ public class Game {
         return gamePlayers;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public void setGamePlayers(Set<GamePlayer> gamePlayers) {
+        this.gamePlayers = gamePlayers;
+    }
+
+    public Set<Score> getScore() {
+        return score;
+    }
+
+    public void setScore(Set<Score> score) {
+        this.score = score;
+    }
 }
 

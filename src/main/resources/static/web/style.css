@@ -33,12 +33,12 @@ th {
 }
 
 .salvo{
-    outline: 2px solid red;
-    background-image: url('https://amayei.nyc3.digitaloceanspaces.com/2021/03/730cbf2e2455c64c961be8e18e793f6b_3-Things-a-Fire-Needs-2000-c-90.jpg');
+    outline: 3px solid red;
+    background-image: url('img/fire.gif');
     background-size: contain;
-    color: white; 
+    color: rgb(0, 39, 2); 
 }
 .salvoAdversary{
-    outline: 2px solid red;
-    color: red; 
+    outline: 3px solid red;
+    color: rgb(0, 44, 17); 
 }

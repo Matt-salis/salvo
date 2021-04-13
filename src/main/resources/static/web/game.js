@@ -79,7 +79,8 @@ var app = new Vue({
                             if (app.shipLocations[i] == app.OpponnentShots[x]) {
                                 //document.getElementById(app.OpponnentShots[x]).innerHTML = "X";
                                 document.getElementById(app.OpponnentShots[x]).classList.toggle("salvo");
-                                console.log("hitted!: " + app.OpponnentShots[x])
+                                var turn = document.getElementById(app.OpponnentShots[x]).innerHTML
+                                console.log("hitted!: " + app.OpponnentShots[x] + ", on turn: " + turn )
                             }
                         }
                     }

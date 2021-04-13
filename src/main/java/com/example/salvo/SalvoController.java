@@ -45,6 +45,7 @@ public class SalvoController {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("id", gamePlayer.getId());
         dto.put("player", makePlayerDTO(gamePlayer.getPlayer()));
+        dto.put("score", gamePlayer.getScore().map(Score::getScore).orElse(null));
         return dto;
     }
 
@@ -79,6 +80,15 @@ public class SalvoController {
         dto.put("locations", salvo.getLocations());
         return dto;
     }
+
+    /*private Map<String, Object> makeScoreDTO(Score score){
+        Map<String, Object> dto =  new LinkedHashMap<String, Object>();
+        dto.put("finishDate", score.getDate());
+        dto.put("gameId", score.getGame().getId());
+        dto.put("playerId", score.getPlayer().getId());
+        dto.put("points", score.getScores());
+        return dto;
+     }*/
 
 }
 

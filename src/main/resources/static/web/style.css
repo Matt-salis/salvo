@@ -1,8 +1,8 @@
-#app{
+#app {
     text-align: center;
 }
 
-.container{
+.container {
     font-family: 'Press Start 2P', cursive;
 }
 
@@ -32,13 +32,14 @@ th {
     background-color: blue;
 }
 
-.salvo{
+.salvo {
     outline: 3px solid red;
     background-image: url('img/fire.gif');
     background-size: contain;
-    color: rgb(0, 39, 2); 
+    color: rgb(0, 39, 2);
 }
-.salvoAdversary{
+
+.salvoAdversary {
     outline: 3px solid red;
-    color: rgb(0, 44, 17); 
+    color: rgb(0, 44, 17);
 }

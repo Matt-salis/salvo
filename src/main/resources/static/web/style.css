@@ -1,5 +1,15 @@
+body {
+    background-image: url('img/rain.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 #app {
     text-align: center;
+}
+
+h4 {
+    color: white;
 }
 
 .container {
@@ -10,11 +20,11 @@
 table,
 td,
 th {
-    border: 1px solid black;
+    border: 2px solid black;
 }
 
 td {
-    outline: 1px solid;
+    outline: 2px solid;
 }
 
 
@@ -36,10 +46,10 @@ th {
     outline: 3px solid red;
     background-image: url('img/fire.gif');
     background-size: contain;
-    color: rgb(0, 39, 2);
+    color: rgb(255, 255, 255);
 }
 
 .salvoAdversary {
-    outline: 3px solid red;
-    color: rgb(0, 44, 17);
+    outline: 5px solid red;
+    color: rgb(255, 255, 255);
 }

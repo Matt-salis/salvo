@@ -25,10 +25,13 @@ public class Player {
 
     private String userName;
 
+    private String password;
+
     public Player() { }
 
-    public Player(String userName) {
+    public Player(String userName, String password) {
         this.userName = userName;
+        this.password = password;
     }
 
     public void addGamePlayer(GamePlayer gamePlayer) {
@@ -78,6 +81,14 @@ public class Player {
 
     public Optional<Score> getScore(Game game){
         return this.scores.stream().filter(p -> p.getGame().equals(game)).findFirst();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 

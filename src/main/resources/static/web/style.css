@@ -1,6 +1,6 @@
 body {
-    background-image: url('img/rain.webp');
-    background-repeat: no-repeat;
+    background-image: url('img/rain.webp'); 
+    
     background-size: cover;
 }
 
@@ -53,3 +53,7 @@ th {
     outline: 5px solid red;
     color: rgb(255, 255, 255);
 }
+#logout{
+    float: right;
+}
+

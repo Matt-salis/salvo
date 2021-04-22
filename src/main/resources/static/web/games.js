@@ -1,8 +1,12 @@
 var app = new Vue({
     el: '#app',
     data: {
+        player: [],
         games: [],
         scores: [],
+        user: "",
+        password: "",
+
     },
     methods: {
         scorePlayers: function (games) {
@@ -41,6 +45,39 @@ var app = new Vue({
                 }
             }
             console.log(app.scores);
+        },
+        login: function () {
+            $.post("/api/login", {
+                    username: app.user,
+                    password: app.password
+                })
+                .done(function () {
+                    console.log("logged in!");
+                    location.reload();
+                })
+                .fail(function () {
+                    alert("LOGGIN FAILED SUCCESFULLY!!")
+                })
+        },
+        signup: function () {
+            $.post("/api/players", {
+                userName: app.user,
+                password: app.password
+            }).done(function () {
+                location.reload();
+            })
+        },
+        logout: function () {
+            $.post("/api/logout").done(function () {
+                console.log("logged out");
+                location.reload();
+            })
+        },
+        currentPlayer: function (player) {
+            if (player != null) {
+                console.log("curretn Player is: " + player.email)
+                document.getElementById("iniciarSesion").classList.toggle('invisible');
+            }
         }
     }
 })
@@ -51,7 +88,9 @@ fetch('http://localhost:8080/api/games')
     })
     .then(function (data) {
 
-        app.games = data;
+        app.games = data.games;
+        app.player = data.player
         console.log(app.games);
         app.scorePlayers(app.games);
+        app.currentPlayer(app.player);
     })

@@ -85,6 +85,12 @@ var app = new Vue({
                 }
             }
         },
+        logout: function () {
+            $.post("/api/logout").done(function () {
+                console.log("logged out");
+                window.location.replace("/web/games.html");
+            })
+        },
 
     },
 })

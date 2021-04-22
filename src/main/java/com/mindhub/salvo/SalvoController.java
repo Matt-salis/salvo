@@ -1,11 +1,19 @@
 package com.mindhub.salvo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 import static java.util.stream.Collectors.toList;
 
 
@@ -17,20 +25,67 @@ public class SalvoController {
     GameRepository gameRepository;
 
     @Autowired
+    PlayerRepository playerRepository;
+
+    @Autowired
     GamePlayerRepository gamePlayerRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     ShipRepository shipRepository;
 
-     
+
+    @RequestMapping(path = "/players", method = RequestMethod.POST)
+    public ResponseEntity<Object> register(@RequestParam String userName, @RequestParam String password) {
+
+        if (userName.isEmpty() || password.isEmpty()) {
+            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+        }
+
+        if (playerRepository.findByUserName(userName) !=  null) {
+            return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
+        }
+
+        playerRepository.save(new Player(userName, passwordEncoder.encode(password)));
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+
      @GetMapping("/game_view/{nn}")
      public Map<String, Object> findGamePlayer(@PathVariable Long nn) {
              return makeGameViewDTO(gamePlayerRepository.findById(nn).get());
      }
 
+
     @RequestMapping("/games")
-    public  List<Map<String, Object>> getAllGames(){
-        return gameRepository.findAll().stream().map(this::makeGameDTO).collect(toList());
+    public  Map<String, Object> getAllGames(Authentication authentication) {
+
+        List<Map<String, Object>> games = gameRepository.findAll().stream().map(this::makeGameDTO).collect(toList());
+
+        Player auth = playerRepository.findByUserName(authentication.getName());
+
+        Map<String, Object> currentPlayer;
+        if(!isGuest(authentication)){
+            currentPlayer = makePlayerDTO(auth);
+        }else{
+            currentPlayer = null;
+        }
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+
+        dto.put("player", currentPlayer);
+        dto.put("games", games);
+        return dto;
+    }
+
+
+    public Map<String, Object> currentPlayerDTO(Authentication authentication) {
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("id", playerRepository.findByUserName(authentication.getName()).getId());
+        dto.put("email", playerRepository.findByUserName(authentication.getName()).getUserName());
+
+        return dto;
     }
 
     private Map<String, Object> makeGameDTO(Game game) {
@@ -79,6 +134,10 @@ public class SalvoController {
         dto.put("turn", salvo.getTurn());
         dto.put("locations", salvo.getLocations());
         return dto;
+    }
+
+    private boolean isGuest(Authentication authentication) {
+        return authentication == null || authentication instanceof AnonymousAuthenticationToken;
     }
 
 

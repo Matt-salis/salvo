@@ -1,0 +1,25 @@
+#iniciarSesion {
+    float: right;
+    margin-top: 10px;
+}
+
+#user_icon {
+    height: auto;
+    margin: auto;
+    width: 90px;
+    padding: 10px;
+}
+.invisible{
+    display: none;
+}
+
+.visibe{
+    display: block;
+}
+#logout{
+    float: right;
+}
+#currentP{
+    font-weight: bold;
+    font-size: 30px;
+}

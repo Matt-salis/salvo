@@ -15,10 +15,10 @@
     <div id="app">
         <div class="container">
             <div class="row">
-                <div class="col-3">
+                <div class="col-4">
                     <h1>Salvo</h1>
                 </div>
-                <div class="col-9">
+                <div class="col-8">
                     <p id="currentP" v-if="player != null">Welcome, {{player.email}} </p>
                     <button type="button" class="btn btn-secondary" id="logout" v-if="player != null" onclick="app.logout()">Log Out</button>
                     <button type="button" class="btn btn-secondary" id="iniciarSesion" data-bs-toggle="modal"

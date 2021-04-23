@@ -23,3 +23,11 @@
     font-weight: bold;
     font-size: 30px;
 }
+body{
+    background-image: url("img/landscape-sky-boat-nature.jpg");
+    background-size: cover;
+}
+.container{
+background-color: white;
+opacity: 85%;
+}

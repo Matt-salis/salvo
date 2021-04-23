@@ -65,6 +65,9 @@
                             <li>{{gamePlayer.player.email}}</li>
                         </ul>
                     </li>
+                    <li v-if="player != null">
+                        <button type="button" class="btn" onclick="app.newGame()">New Game</button>
+                    </li>
                 </ol>
             </nav>
 

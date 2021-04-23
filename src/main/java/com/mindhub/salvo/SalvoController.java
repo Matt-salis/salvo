@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,8 +53,14 @@ public class SalvoController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping("/games")
+    public ResponseEntity<Object> newGame(LocalDateTime date) {
+        gameRepository.save(new Game(LocalDateTime.now()));
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
-     @GetMapping("/game_view/{nn}")
+
+        @GetMapping("/game_view/{nn}")
      public Map<String, Object> findGamePlayer(@PathVariable Long nn) {
              return makeGameViewDTO(gamePlayerRepository.findById(nn).get());
      }
@@ -64,10 +71,11 @@ public class SalvoController {
 
         List<Map<String, Object>> games = gameRepository.findAll().stream().map(this::makeGameDTO).collect(toList());
 
-        Player auth = playerRepository.findByUserName(authentication.getName());
+
 
         Map<String, Object> currentPlayer;
         if(!isGuest(authentication)){
+            Player auth = playerRepository.findByUserName(authentication.getName());
             currentPlayer = makePlayerDTO(auth);
         }else{
             currentPlayer = null;
@@ -76,15 +84,6 @@ public class SalvoController {
 
         dto.put("player", currentPlayer);
         dto.put("games", games);
-        return dto;
-    }
-
-
-    public Map<String, Object> currentPlayerDTO(Authentication authentication) {
-        Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("id", playerRepository.findByUserName(authentication.getName()).getId());
-        dto.put("email", playerRepository.findByUserName(authentication.getName()).getUserName());
-
         return dto;
     }
 

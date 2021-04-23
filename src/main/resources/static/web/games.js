@@ -56,7 +56,7 @@ var app = new Vue({
                     location.reload();
                 })
                 .fail(function () {
-                    alert("LOGGIN FAILED SUCCESFULLY!!")
+                    alert("LOGGIN FAILED SUCCESFULLY!!");
                 })
         },
         signup: function () {
@@ -64,7 +64,16 @@ var app = new Vue({
                 userName: app.user,
                 password: app.password
             }).done(function () {
-                location.reload();
+                $.post("/api/login", {
+                    username: app.user,
+                    password: app.password
+                })
+                .done(function () {
+                    console.log("logged in!");
+                    location.reload();
+                })
+            }).fail(function () {
+                alert("SIGN UP FAILED SUCCESFULLY!!");
             })
         },
         logout: function () {
@@ -78,6 +87,16 @@ var app = new Vue({
                 console.log("curretn Player is: " + player.email)
                 document.getElementById("iniciarSesion").classList.toggle('invisible');
             }
+        },
+        newGame: function (){
+            $.post("/api/games")
+            .done(function () {
+                location.reload();
+                console.log("game created");
+            })
+            .fail(function () {
+                alert("GAME CREATION FAILED SUCCESFULLY!!");
+            })
         }
     }
 })

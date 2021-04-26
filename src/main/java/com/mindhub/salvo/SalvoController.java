@@ -61,9 +61,27 @@ public class SalvoController {
 
 
         @GetMapping("/game_view/{nn}")
-     public Map<String, Object> findGamePlayer(@PathVariable Long nn) {
-             return makeGameViewDTO(gamePlayerRepository.findById(nn).get());
-     }
+     public  ResponseEntity<Map<String, Object>> findGamePlayer(@PathVariable Long nn, Authentication authentication) {
+
+            GamePlayer gamePlayer;
+
+            gamePlayer = gamePlayerRepository.findById(nn).get();
+
+            if(!isGuest(authentication)){
+                Player auth = playerRepository.findByUserName(authentication.getName());
+
+                if( auth.getId() == gamePlayer.getId()){
+                    return new ResponseEntity<>(makeGameViewDTO(gamePlayerRepository.findById(nn).get()), HttpStatus.ACCEPTED) ;
+                }
+                else{
+                    return new ResponseEntity<>(makeGameViewDTO(null), HttpStatus.FORBIDDEN);
+                }
+            }else{
+                return new ResponseEntity<>(makeGameViewDTO(null), HttpStatus.FORBIDDEN);
+            }
+
+    }
+
 
 
     @RequestMapping("/games")

@@ -33,12 +33,18 @@ th {
     height: 50px;
 }
 
+th{
+    color: red;
+}
+
 #empty {
     background-color: rgb(180, 180, 180);
 }
 
 .ship {
     background-color: blue;
+    background-image: url('img/giphy.gif');
+    background-size:cover;
 }
 
 .salvo {

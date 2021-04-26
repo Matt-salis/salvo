@@ -97,6 +97,9 @@ var app = new Vue({
             .fail(function () {
                 alert("GAME CREATION FAILED SUCCESFULLY!!");
             })
+        },
+        joinGame: function (jg){
+            window.location.replace("/web/game.html?gp=" + jg);
         }
     }
 })

@@ -20,47 +20,22 @@
                 </div>
                 <div class="col-8">
                     <p id="currentP" v-if="player != null">Welcome, {{player.email}} </p>
-                    <button type="button" class="btn btn-secondary" id="logout" v-if="player != null" onclick="app.logout()">Log Out</button>
+                    <button type="button" class="btn btn-secondary" id="logout" v-if="player != null"
+                        onclick="app.logout()">Log Out</button>
                     <button type="button" class="btn btn-secondary" id="iniciarSesion" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">Login</button>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <img src="img/user.png" alt="user icon" id="user_icon">
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="row">
-                                            <label for="uname"><b>Username</b></label>
-                                            <input type="text" placeholder="Enter Username" name="uname" v-model="user" required>
-                                        </div>
-                                        <div class="row">
-                                            <label for="psw"><b>Password</b></label>
-                                            <input type="password" placeholder="Enter Password" name="psw" v-model="password" required>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" id="login" onclick="app.login()">Login</button>
-                                    <button type="button" class="btn btn-primary" id="signup" onclick="app.signup()">Sign Up</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal End -->
+
 
                 </div>
             </div>
             <nav>
                 <ol>
                     <li v-for="game in games">
-                        {{game.date}}
+                        {{game.date}} <button class="btn btn-primary"
+                                v-if="player != null && game.gamePlayers.filter(em => em.player.id == player.id).length >= 1"
+                                v-on:click="joinGame(game.gamePlayers.find(em => em.player.id == player.id).id)">
+                                Return Game {{game.id}} </button>
                         <ul v-for="gamePlayer in game.gamePlayers">
                             <li>{{gamePlayer.player.email}}</li>
                         </ul>
@@ -89,6 +64,36 @@
 
             </table>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <img src="img/user.png" alt="user icon" id="user_icon">
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <label for="uname"><b>Username</b></label>
+                                <input type="text" placeholder="Enter Username" name="uname" v-model="user" required>
+                            </div>
+                            <div class="row">
+                                <label for="psw"><b>Password</b></label>
+                                <input type="password" placeholder="Enter Password" name="psw" v-model="password"
+                                    required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="login" onclick="app.login()">Login</button>
+                        <button type="button" class="btn btn-primary" id="signup" onclick="app.signup()">Sign
+                            Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal End -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>

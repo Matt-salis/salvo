@@ -3,10 +3,14 @@ const gp = urlParams.get('gp');
 console.log(gp);
 var g = parseInt(gp)
 
-
 fetch('http://localhost:8080/api/game_view/' + gp)
     .then(function (respuesta) {
+        console.log(respuesta.status); 
+        if (!respuesta.ok) {
+            window.location.replace("/web/games.html");
+        }
         return respuesta.json();
+        
     })
     .then(function (data) {
 

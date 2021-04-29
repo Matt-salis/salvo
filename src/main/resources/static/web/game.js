@@ -5,21 +5,27 @@ var g = parseInt(gp)
 
 fetch('http://localhost:8080/api/game_view/' + gp)
     .then(function (respuesta) {
-        console.log(respuesta.status); 
-        if (!respuesta.ok) {
-            window.location.replace("/web/games.html");
-        }
-        return respuesta.json();
-        
-    })
+        if (respuesta.status == 200) {
+            return respuesta.json();
+        }else{
+        throw new Error(respuesta.status);
+    }
+})
     .then(function (data) {
 
         console.log(data)
         app.gameView = data;
-        app.paintLocations();
-        app.playerIndex();
-        app.salvoLocations();
-        app.hittedShips();
+        if (app.gameView != null) {
+            app.paintLocations();
+            app.playerIndex();
+            app.salvoLocations();
+            app.hittedShips();
+        }
+    }).catch(function (error) {
+
+        alert("no puedes ver este juego");
+        window.location.replace("/web/games.html");
+
     })
 
 
@@ -71,9 +77,12 @@ var app = new Vue({
             var g = parseInt(gp)
             var gamer = app.gameView.gamePlayers.find(em => em.id == g)
             var adversary = app.gameView.gamePlayers.find(em => em.id != g)
-            console.log("jugador actual " + gamer.player.email)
-            app.currentPlayer = gamer.player;
+            if(adversary != null){
             app.currentAdversary = adversary.player;
+            }
+            app.currentPlayer = gamer.player;
+            console.log("jugador actual " + gamer.player.email)
+            
         },
 
         hittedShips: function () {
@@ -95,6 +104,9 @@ var app = new Vue({
                 window.location.replace("/web/games.html");
             })
         },
+        mainMenu: function () {
+            window.location.replace("/web/games.html");
+        }
 
     },
 })

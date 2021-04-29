@@ -3,6 +3,7 @@ var app = new Vue({
     data: {
         player: [],
         games: [],
+        gpid: "",
         scores: [],
         user: "",
         password: "",
@@ -65,13 +66,13 @@ var app = new Vue({
                 password: app.password
             }).done(function () {
                 $.post("/api/login", {
-                    username: app.user,
-                    password: app.password
-                })
-                .done(function () {
-                    console.log("logged in!");
-                    location.reload();
-                })
+                        username: app.user,
+                        password: app.password
+                    })
+                    .done(function () {
+                        console.log("logged in!");
+                        location.reload();
+                    })
             }).fail(function () {
                 alert("SIGN UP FAILED SUCCESFULLY!!");
             })
@@ -88,21 +89,32 @@ var app = new Vue({
                 document.getElementById("iniciarSesion").classList.toggle('invisible');
             }
         },
-        newGame: function (){
+        newGame: function () {
             $.post("/api/games")
-            .done(function () {
-                location.reload();
-                console.log("game created");
-            })
-            .fail(function () {
-                alert("GAME CREATION FAILED SUCCESFULLY!!");
-            })
+                .done(function (datos) {
+                    console.log(datos);
+                    window.location.href("/web/game.html?gp=" + datos.gpid);
+                    console.log("game created");
+                })
+                .fail(function () {
+                    alert("GAME CREATION FAILED SUCCESFULLY!!");
+                })
         },
-        joinGame: function (jg){
-            window.location.replace("/web/game.html?gp=" + jg);
-        }
+        retGame: function (jg) {
+            window.location.href("/web/game.html?gp=" + jg);
+        },
+
+        joinGame: function (game) {
+            $.post("/api/games/" + game + "/players")
+        .done(function (datos){
+            window.location.href("/web/game.html?gp=" + datos.gpid);
+        }).fail(function (){
+            alert("Cant join game!");
+        })
+        },
     }
 })
+
 
 fetch('http://localhost:8080/api/games')
     .then(function (respuesta) {
@@ -111,8 +123,9 @@ fetch('http://localhost:8080/api/games')
     .then(function (data) {
 
         app.games = data.games;
-        app.player = data.player
-        console.log(app.games);
+        app.player = data.player;
+        app.gpid = data.gpid;
+        console.log(data.gpid);
         app.scorePlayers(app.games);
         app.currentPlayer(app.player);
     })

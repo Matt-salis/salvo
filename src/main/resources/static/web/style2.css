@@ -31,3 +31,10 @@ body{
 background-color: white;
 opacity: 85%;
 }
+li.nostyle {
+    list-style-type: none;
+}
+#title{
+    font-weight: bold;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}

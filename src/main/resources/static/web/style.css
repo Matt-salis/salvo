@@ -42,7 +42,7 @@ th{
 }
 
 .ship {
-    background-color: blue;
+    
     background-image: url('img/giphy.gif');
     background-size:cover;
 }
@@ -58,7 +58,9 @@ th{
     outline: 5px solid red;
     color: rgb(255, 255, 255);
 }
-#logout{
+.logout{
     float: right;
+    margin-bottom: 10px;
+    margin-right: 3px;
 }
 

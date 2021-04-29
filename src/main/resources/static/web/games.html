@@ -16,12 +16,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-4">
-                    <h1>Salvo</h1>
+                    <h1 id="title">Salvo</h1>
                 </div>
                 <div class="col-8">
                     <p id="currentP" v-if="player != null">Welcome, {{player.email}} </p>
                     <button type="button" class="btn btn-secondary" id="logout" v-if="player != null"
-                        onclick="app.logout()">Log Out</button>
+                        v-on:click="logout()">Log Out</button>
                     <button type="button" class="btn btn-secondary" id="iniciarSesion" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">Login</button>
 
@@ -31,18 +31,22 @@
             </div>
             <nav>
                 <ol>
+                    <li class="nostyle" v-if="player != null">
+                        <button type="button" class="btn btn-danger" v-on:click="newGame()">New Game</button>
+                    </li>
+                </ol>
+                <ol>
                     <li v-for="game in games">
                         {{game.date}} <button class="btn btn-primary"
-                                v-if="player != null && game.gamePlayers.filter(em => em.player.id == player.id).length >= 1"
-                                v-on:click="joinGame(game.gamePlayers.find(em => em.player.id == player.id).id)">
-                                Return Game {{game.id}} </button>
+                            v-if="player != null && game.gamePlayers.find(em => em.player.id == player.id)"
+                            v-on:click="retGame(game.gamePlayers.find(em => em.player.id == player.id).id)">
+                            Return Game {{game.id}} </button>
+                            <button class="btn btn-warning" v-if="player !=null && game.gamePlayers.find(em => em.player.id != player.id) && game.gamePlayers.length <= 1" v-on:click="joinGame(game.id)">Join Game {{game.id}}</button>
                         <ul v-for="gamePlayer in game.gamePlayers">
                             <li>{{gamePlayer.player.email}}</li>
                         </ul>
                     </li>
-                    <li v-if="player != null">
-                        <button type="button" class="btn" onclick="app.newGame()">New Game</button>
-                    </li>
+
                 </ol>
             </nav>
 

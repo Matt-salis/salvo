@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -31,6 +33,9 @@ public class SalvoController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ShipRepository shipRepository;
 
     @RequestMapping(path = "/players", method = RequestMethod.POST)
     public ResponseEntity<Object> register(@RequestParam String userName, @RequestParam String password) {
@@ -55,15 +60,23 @@ public class SalvoController {
             Player auth = playerRepository.findByUserName(authentication.getName());
             if(game.isPresent()){
                 if(game.get().getGamePlayers().size() < 2){
+                        if(game.get().getGamePlayers().stream().anyMatch(em -> em.getPlayer().getId() != auth.getId())) {
 
-                    GamePlayer gamePlayer = new GamePlayer(LocalDateTime.now(), game.get() , auth);
-                    gamePlayerRepository.save(gamePlayer);
-                    return new ResponseEntity<>(makeMap("gpid", gamePlayer.getId()), HttpStatus.CREATED);
+                            GamePlayer gamePlayer = new GamePlayer(LocalDateTime.now(), game.get(), auth);
+                            gamePlayerRepository.save(gamePlayer);
+                            return new ResponseEntity<>(makeMap("gpid", gamePlayer.getId()), HttpStatus.CREATED);
 
-                }else{
+                        }else{
+
+                            return new  ResponseEntity<>(makeMap("Error", "you cant join the same game twice!"), HttpStatus.FORBIDDEN);
+                        }
+                }
+                else{
+
                     return new  ResponseEntity<>(makeMap("Error", "This game is full!"), HttpStatus.FORBIDDEN);
                 }
             }else{
+
                 return new  ResponseEntity<>(makeMap("Error", "This game doesn't exist!"), HttpStatus.NOT_FOUND);
             }
 
@@ -112,7 +125,31 @@ public class SalvoController {
             }
     }
 
-
+    @PostMapping("/games/players/{gamePlayerId}/ships")
+    public  ResponseEntity<Map<String, Object>> PlaceShips(@PathVariable Long gamePlayerId,@RequestBody List<Ship> ships, Authentication authentication){
+        if(!isGuest(authentication)){
+            Optional<GamePlayer> gamePlayer = gamePlayerRepository.findById(gamePlayerId);
+            if(gamePlayer.isPresent()){
+                Player authPlayer = playerRepository.findByUserName(authentication.getName());
+                if(authPlayer.getId() == gamePlayer.get().getPlayer().getId()){
+                    if(ships.size() <= 5){
+                        for (Ship ship:ships){
+                            shipRepository.save(new Ship(gamePlayer.get(), ship.getType(), ship.getLocations()));
+                        }
+                        return new ResponseEntity<>(makeMap("gpid", gamePlayer.get().getId()), HttpStatus.CREATED);
+                    }else{
+                        return new ResponseEntity<>(makeMap("Error","tus naves ya estan creadas"), HttpStatus.FORBIDDEN);
+                    }
+                }else{
+                    return new ResponseEntity<>(makeMap("Error","el gameplayer no corresponde a este juego"), HttpStatus.FORBIDDEN);
+                }
+            }else{
+                return new ResponseEntity<>(makeMap("Error","el gameplayer seleccionado no existe"), HttpStatus.NOT_FOUND);
+            }
+        }else{
+            return new ResponseEntity<>(makeMap("Error","No tenes acceso! inicia sesion"), HttpStatus.UNAUTHORIZED);
+        }
+    }
 
     @RequestMapping("/games")
     public  Map<String, Object> getAllGames(Authentication authentication) {

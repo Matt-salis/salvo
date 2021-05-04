@@ -20,7 +20,7 @@
                 <h1>BattleShip!</h1>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-12">
                 <h4 id="players">P1: {{currentPlayer.email}}(You) VS. P2: {{currentAdversary.email}} </h4>
@@ -30,6 +30,7 @@
             <div class="col-12">
                 <button class="logout" v-on:click="logout()">Log Out</button>
                 <button class="logout" v-on:click="mainMenu()">Main menu</button>
+                <button class="logout" v-if="nships < 5" v-on:click="createShips()">place Ships</button>
             </div>
         </div>
 
@@ -44,7 +45,8 @@
                     </tr>
                     <tr v-for="row in rows">
                         <th>{{row}}</th>
-                        <td v-for="column in columns" v-bind:id="row + column"></td>
+                        <td v-for="column in columns" v-bind:id="row + column" v-on:click="placed(row, column)"
+                            @mouseover="hover(row,column)" @mouseout="out(row,column)"></td>
                     </tr>
                 </table>
             </div>
@@ -62,6 +64,29 @@
 
             </div>
         </div>
+        <div v-if="nships < 5">
+            <div class="row" id="ships">
+                <div class="col">
+                    <p class="btn btn-primary" v-on:click="setShipType('Destroyer', 3)">Destroyer</p>
+                </div>
+                <div class="col">
+                    <p class="btn btn-primary" v-on:click="setShipType('Carrier', 5)">Carrier</p>
+                </div>
+                <div class="col">
+                    <p class="btn btn-primary" v-on:click="setShipType('Battleship', 4)">Battleship</p>
+                </div>
+                <div class="col">
+                    <p class="btn btn-primary" v-on:click="setShipType('Patrol', 2)">Patrol</p>
+                </div>
+                <div class="col">
+                    <p class="btn btn-primary" v-on:click="setShipType('Submarine', 3)">Submarine</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <p class="btn btn-primary" v-on:click="toggleOrientation">{{orientacion}}</p>
+            </div>
+        </div>
 
 
     </div>
@@ -69,10 +94,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
     </script>
-    <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </body>
 
 </html>

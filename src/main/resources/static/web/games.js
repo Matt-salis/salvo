@@ -45,7 +45,6 @@ var app = new Vue({
                     }
                 }
             }
-            console.log(app.scores);
         },
         login: function () {
             $.post("/api/login", {
@@ -93,7 +92,7 @@ var app = new Vue({
             $.post("/api/games")
                 .done(function (datos) {
                     console.log(datos);
-                    window.location.href("/web/game.html?gp=" + datos.gpid);
+                    window.location.href = ("/web/game.html?gp=" + datos.gpid);
                     console.log("game created");
                 })
                 .fail(function () {
@@ -101,13 +100,13 @@ var app = new Vue({
                 })
         },
         retGame: function (jg) {
-            window.location.href("/web/game.html?gp=" + jg);
+            window.location.href = ("/web/game.html?gp=" + jg);
         },
 
         joinGame: function (game) {
             $.post("/api/games/" + game + "/players")
         .done(function (datos){
-            window.location.href("/web/game.html?gp=" + datos.gpid);
+            window.location.href = ("/web/game.html?gp=" + datos.gpid);
         }).fail(function (){
             alert("Cant join game!");
         })

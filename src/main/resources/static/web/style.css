@@ -41,7 +41,27 @@ th{
     background-color: rgb(180, 180, 180);
 }
 
-.ship {
+.Carrier {
+    
+    background-image: url('img/giphy.gif');
+    background-size:cover;
+}
+.Destroyer {
+    
+    background-image: url('img/giphy.gif');
+    background-size:cover;
+}
+.Patrol {
+    
+    background-image: url('img/giphy.gif');
+    background-size:cover;
+}
+.Battleship {
+    
+    background-image: url('img/giphy.gif');
+    background-size:cover;
+}
+.Submarine {
     
     background-image: url('img/giphy.gif');
     background-size:cover;
@@ -64,3 +84,14 @@ th{
     margin-right: 3px;
 }
 
+#ships{
+    margin-top: 10px;
+}
+.pre-selected{
+    background-color: orange;
+    opacity: 40%;
+}
+.selected{
+    background-color: red;
+
+}

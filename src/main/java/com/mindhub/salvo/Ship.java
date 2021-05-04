@@ -59,7 +59,7 @@ public class Ship {
     }
 
     public void setType(String type) {
-        type = type;
+        this.type = type;
     }
 
     public List<String> getLocations() {

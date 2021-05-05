@@ -1,5 +1,5 @@
 body {
-    background-image: url('img/rain.webp'); 
+    background-image: url('../img/rain.webp'); 
     background-size: cover;
 }
 
@@ -43,28 +43,26 @@ th{
 
 .Carrier {
     
-    background-image: url('img/giphy.gif');
-    background-size:cover;
-}
+    /* background-image: url('img/giphy.gif');
+    background-size:cover;*/
+    background-color: red;
+
+} 
 .Destroyer {
     
-    background-image: url('img/giphy.gif');
-    background-size:cover;
+    background-color: rgb(255, 153, 0);
 }
 .Patrol {
     
-    background-image: url('img/giphy.gif');
-    background-size:cover;
+    background-color: rgb(255, 238, 0);
 }
 .Battleship {
     
-    background-image: url('img/giphy.gif');
-    background-size:cover;
+    background-color: rgb(255, 94, 0);
 }
 .Submarine {
     
-    background-image: url('img/giphy.gif');
-    background-size:cover;
+    background-color: rgb(255, 153, 0);
 }
 
 .salvo {
@@ -91,7 +89,27 @@ th{
     background-color: orange;
     opacity: 40%;
 }
-.selected{
-    background-color: red;
+.pressed{
+    opacity: 40%;
+    background: gray;
+}
 
+/* .instructions{
+    background-color: ghostwhite;
+    opacity: 40%;
+    font-size: 10px;
+    width: 300px;
+    position: absolute;
+    top: 20px;
+    left: 10px;
+} */
+
+.flexbox{
+    width: max-content;
+}
+.selected{
+    opacity: 60%;
+}
+#reset{
+    margin-top: 10px;
 }

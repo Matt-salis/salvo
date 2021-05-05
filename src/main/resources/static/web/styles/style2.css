@@ -24,7 +24,7 @@
     font-size: 30px;
 }
 body{
-    background-image: url("img/landscape-sky-boat-nature.jpg");
+    background-image: url("../img/landscape-sky-boat-nature.jpg");
     background-size: cover;
 }
 .container{

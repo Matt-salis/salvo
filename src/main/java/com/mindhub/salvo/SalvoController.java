@@ -132,14 +132,14 @@ public class SalvoController {
             if(gamePlayer.isPresent()){
                 Player authPlayer = playerRepository.findByUserName(authentication.getName());
                 if(authPlayer.getId() == gamePlayer.get().getPlayer().getId()){
-                   if(gamePlayer.get().getShips().size() != 5){
-                    if(ships.size() >= 5){
+                   if(gamePlayer.get().getShips().size() == 0){
+                    if(ships.size() == 5){
                         for (Ship ship:ships){
                             shipRepository.save(new Ship(gamePlayer.get(), ship.getType(), ship.getLocations()));
                         }
                         return new ResponseEntity<>(makeMap("gpid", gamePlayer.get().getId()), HttpStatus.CREATED);
                     }else{
-                        return new ResponseEntity<>(makeMap("Error","tus naves ya estan creadas"), HttpStatus.FORBIDDEN);
+                        return new ResponseEntity<>(makeMap("Error","no se crearon 5 naves"), HttpStatus.FORBIDDEN);
                     }
                    }else{
                        return new ResponseEntity<>(makeMap("Error","tus naves ya estan creadas"), HttpStatus.FORBIDDEN);

@@ -207,9 +207,9 @@ var app = new Vue({
             }
             if (!this.located.includes(this.actualShip)) {
                 if (this.orientacion == "horizontal") {
-                    if ((c + this.actualLocations - 1) <= 10) {
+                    if ((parseInt(c) + this.actualLocations - 1) <= 10) {
                         for (i = 0; i < this.actualLocations; i++) {
-                            document.getElementById(r + (c + i)).classList.toggle("pre-selected", true);
+                            document.getElementById(r + (parseInt(c) + i)).classList.toggle("pre-selected", true);
                         }
                     }
                 } else if (this.orientacion == "vertical") {
@@ -240,10 +240,12 @@ var app = new Vue({
         restart: function (r, c) {
             location.reload();
         },
-
+        
         toggleOrientation: function () {
+
             if (this.orientacion == "horizontal") {
                 this.orientacion = "vertical";
+                
             } else {
                 this.orientacion = "horizontal";
             }
@@ -288,6 +290,16 @@ var app = new Vue({
 document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === 32) {
 
+        element = document.querySelectorAll(':hover')
+       
         app.toggleOrientation();
+
+        let poss = element[element.length - 1];
+        if (poss.tagName == 'TD') {
+            let r = poss.id.charAt(0);
+            let c = poss.id.substring(1);
+
+            app.hover(r, c);
+        } 
     }
 });

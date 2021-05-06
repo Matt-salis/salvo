@@ -124,7 +124,6 @@ fetch('http://localhost:8080/api/games')
         app.games = data.games;
         app.player = data.player;
         app.gpid = data.gpid;
-        console.log(data.gpid);
         app.scorePlayers(app.games);
         app.currentPlayer(app.player);
     })

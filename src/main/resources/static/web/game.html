@@ -103,8 +103,10 @@
             <p class="btn btn-primary btn-lg btn-block" v-on:click="toggleOrientation">{{orientacion}}</p>
 
         </div>
-        <button class="btn btn-danger btn-lg btn-block" id="reset" v-if="shipLocations < 5" v-on:click="restart()">reset</button>
-        <button class="btn btn-success btn-lg btn-block" v-if="json.length == 5" v-on:click="createShips()">place Ships</button>
+        <button class="btn btn-danger btn-lg btn-block" id="reset" v-if="shipLocations < 5"
+            v-on:click="restart()">reset</button>
+        <button class="btn btn-success btn-lg btn-block" v-if="json.length == 5" v-on:click="createShips()">place
+            Ships</button>
 
 
 
@@ -120,6 +122,7 @@
                     <h5>Press the Spacebar to toggle the orientation of the ships while placing them</h5>
                     <p>in case you want to change te posittions of your ships, click on the restart button</p>
                 </div> -->
+
 
     <script src="js/game.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

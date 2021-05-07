@@ -41,33 +41,123 @@ th{
     background-color: rgb(180, 180, 180);
 }
 
-.Carrier {
-    
-    /* background-image: url('img/giphy.gif');
-    background-size:cover;*/
-    background-color: red;
 
+
+
+.Carrier1 { 
+    background-image: url('../img/carrier1.png');
+    background-size: contain;
+    background-color: red;
 } 
-.Destroyer {
-    
+.Carrier2 {
+    background-image: url('../img/carrier2.png');
+    background-size: contain;
+    background-color: red;
+}
+.Carrier3 {
+    background-image: url('../img/carrier3.png');
+    background-size: contain;
+    background-color: red;
+}
+.Carrier4 {
+    background-image: url('../img/carrier4.png');
+    background-size: contain;
+    background-color: red;
+}
+.Carrier5 {
+    background-image: url('../img/carrier5.png');
+    background-size: contain;
+    background-color: red;
+}
+
+
+
+.Destroyer1 {
+    background-image: url('../img/destroyer1.png');
+    background-size: contain;
     background-color: rgb(255, 153, 0);
 }
-.Patrol {
-    
-    background-color: rgb(255, 238, 0);
+.Destroyer2 {
+    background-image: url('../img/destroyer2.png');
+    background-size: contain;
+    background-color: rgb(255, 153, 0);
 }
-.Battleship {
-    
+.Destroyer3 {
+    background-image: url('../img/destroyer4.png');
+    background-size: contain;
+    background-color: rgb(255, 153, 0);
+}
+/* .Destroyer4 {
+    background-image: url('../img/destroyer4.png');
+    background-size: contain;
+    background-color: rgb(255, 153, 0);
+} */
+
+
+
+
+.Patrol1 {
+    background-image: url('../img/patrol1.png'); 
+    background-size: cover;  
+    /* background-color: rgb(255, 238, 0); */
+}
+.Patrol2 {
+    background-image: url("../img/patrol2.png"); 
+    background-size: cover;  
+    /* background-color: rgb(255, 238, 0); */
+}
+
+
+
+
+.Battleship1 {
+    background-image: url('../img/battle1.png');
+    background-size: contain;
     background-color: rgb(255, 94, 0);
 }
-.Submarine {
-    
+.Battleship2 {
+    background-image: url('../img/battle2.png');
+    background-size: contain;
+    background-color: rgb(255, 94, 0);
+}
+.Battleship3 {
+    background-image: url('../img/battle3.png');
+    background-size: contain;
+    background-color: rgb(255, 94, 0);
+}
+.Battleship4 {
+    background-image: url('../img/battle4.png');
+    background-size: contain;
+    background-color: rgb(255, 94, 0);
+}
+
+
+
+.Submarine1 {
+    background-image: url('../img/submarino1.png');
+    background-size: contain;
     background-color: rgb(255, 153, 0);
 }
+.Submarine2{
+    background-image: url('../img/submarino2.png');
+    background-size: contain;
+    background-color: rgb(255, 153, 0);
+}
+.Submarine3{
+    background-image: url('../img/submarino3.png');
+    background-size: contain;
+    background-color: rgb(255, 153, 0);
+}
+
+
+
+
+
+
 
 .salvo {
     outline: 3px solid red;
-    background-image: url('img/fire.gif');
+    background-image: url('../img/fire.gif');
     background-size: contain;
     color: rgb(255, 255, 255);
 }

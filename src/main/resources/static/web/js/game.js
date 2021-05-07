@@ -2,16 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const gp = urlParams.get('gp');
 var gamePlayerId = parseInt(gp)
 
-// var A = 1;
-// var B = 2;
-// var C = 3;
-// var D = 4;
-// var E = 5;
-// var F = 6;
-// var G = 7;
-// var H = 8;
-// var I = 9;
-// var J = 10;
+
 
 fetch('http://localhost:8080/api/game_view/' + gp)
     .then(function (respuesta) {
@@ -61,12 +52,20 @@ var app = new Vue({
         json: [],
     },
     methods: {
+
         paintLocations: function () {
+
             app.nships = app.gameView.ships.length;
             for (x = 0; x < app.gameView.ships.length; x++) {
+                let shp = 1
                 for (i = 0; i < app.gameView.ships[x].locations.length; i++) {
-                    document.getElementById(app.gameView.ships[x].locations[i]).classList.toggle(app.gameView.ships[x].type);
-
+                    if (app.gameView.ships[x].locations[0][0] == app.gameView.ships[x].locations[1][0]) {
+                        document.getElementById(app.gameView.ships[x].locations[i]).classList.toggle(app.gameView.ships[x].type + shp);
+                    } else {
+                        document.getElementById(app.gameView.ships[x].locations[i]).classList.toggle(app.gameView.ships[x].type + shp);
+                        document.getElementById(app.gameView.ships[x].locations[i]).style.transform = 'rotate(90deg)';
+                    }
+                    shp += 1;
                     app.shipLocations.push(app.gameView.ships[x].locations[i]);
                 }
             }
@@ -126,69 +125,74 @@ var app = new Vue({
                 type: "",
                 locations: []
             };
+            let shp = 1
+            if (this.nships < 5) {
+                document.getElementById("Destroyer").classList.replace("btn-danger", "btn-primary");
+                document.getElementById("Carrier").classList.replace("btn-danger", "btn-primary");
+                document.getElementById("Patrol").classList.replace("btn-danger", "btn-primary");
+                document.getElementById("Submarine").classList.replace("btn-danger", "btn-primary");
+                document.getElementById("Battleship").classList.replace("btn-danger", "btn-primary");
 
-            document.getElementById("Destroyer").classList.replace("btn-danger", "btn-primary");
-            document.getElementById("Carrier").classList.replace("btn-danger", "btn-primary");
-            document.getElementById("Patrol").classList.replace("btn-danger", "btn-primary");
-            document.getElementById("Submarine").classList.replace("btn-danger", "btn-primary");
-            document.getElementById("Battleship").classList.replace("btn-danger", "btn-primary");
 
-
-            if (!this.located.includes(this.actualShip)) {
-                if (this.orientacion == "horizontal") {
-                    if ((c + this.actualLocations - 1) <= 10) {
-                        for (i = 0; i < this.actualLocations; i++) {
-                            this.possitions.push(r + (c + i))
-                        }
-
-                        if (!this.placedShips.some(c => this.possitions.includes(c))) {
-                            for (x = 0; x < this.possitions.length; x++) {
-                                document.getElementById(this.possitions[x]).classList.toggle(this.actualShip, true);
-                                this.placedShips.push(this.possitions[x])
+                if (!this.located.includes(this.actualShip)) {
+                    if (this.orientacion == "horizontal") {
+                        if ((c + this.actualLocations - 1) <= 10) {
+                            for (i = 0; i < this.actualLocations; i++) {
+                                this.possitions.push(r + (c + i))
                             }
-                            this.located.push(this.actualShip);
-                            document.getElementById(this.actualShip).classList.toggle("pressed", true)
-                            this.nships += 1;
-                            jsonLocation.type = this.actualShip;
-                            jsonLocation.locations = this.possitions;
-                            this.json.push(jsonLocation);
-                            console.log(this.json);
-                        }
 
-
-
-
-                        this.possitions = [];
-                    }
-
-
-                } else if (this.orientacion == "vertical") {
-                    if ((this.rows.indexOf(r) + this.actualLocations) <= 10) {
-                        for (x = 0; x < this.actualLocations; x++) {
-                            this.possitions.push((this.rows[this.rows.indexOf(r) + x]) + c)
-                        }
-
-                        if (!this.placedShips.some(c => this.possitions.includes(c))) {
-                            for (i = 0; i < this.possitions.length; i++) {
-                                document.getElementById(this.possitions[i]).classList.toggle(this.actualShip, true);
-                                this.placedShips.push(this.possitions[i]);
+                            if (!this.placedShips.some(c => this.possitions.includes(c))) {
+                                for (x = 0; x < this.possitions.length; x++) {
+                                    document.getElementById(this.possitions[x]).classList.toggle(this.actualShip + shp, true);
+                                    shp += 1
+                                    this.placedShips.push(this.possitions[x])
+                                }
+                                this.located.push(this.actualShip);
+                                document.getElementById(this.actualShip).classList.toggle("pressed", true)
+                                this.nships += 1;
+                                jsonLocation.type = this.actualShip;
+                                jsonLocation.locations = this.possitions;
+                                this.json.push(jsonLocation);
+                                console.log(this.json);
                             }
-                            this.located.push(this.actualShip);
-                            document.getElementById(this.actualShip).classList.toggle("pressed", true) //
-                            this.nships += 1;
-                            jsonLocation.type = this.actualShip;
-                            jsonLocation.locations = this.possitions;
-                            this.json.push(jsonLocation);
-                            console.log(this.json);
 
+
+
+
+                            this.possitions = [];
                         }
 
 
+                    } else if (this.orientacion == "vertical") {
+                        if ((this.rows.indexOf(r) + this.actualLocations) <= 10) {
+                            for (x = 0; x < this.actualLocations; x++) {
+                                this.possitions.push((this.rows[this.rows.indexOf(r) + x]) + c)
+                            }
 
-                        this.possitions = [];
+                            if (!this.placedShips.some(c => this.possitions.includes(c))) {
+                                for (i = 0; i < this.possitions.length; i++) {
+                                    document.getElementById(this.possitions[i]).classList.toggle(this.actualShip + shp, true);
+                                    document.getElementById(this.possitions[i]).style.transform = 'rotate(90deg)';
+                                    shp += 1
+                                    this.placedShips.push(this.possitions[i]);
+                                }
+                                this.located.push(this.actualShip);
+                                document.getElementById(this.actualShip).classList.toggle("pressed", true) //
+                                this.nships += 1;
+                                jsonLocation.type = this.actualShip;
+                                jsonLocation.locations = this.possitions;
+                                this.json.push(jsonLocation);
+                                console.log(this.json);
+
+                            }
+
+
+
+                            this.possitions = [];
+                        }
+
+
                     }
-
-
                 }
             }
         },
@@ -240,12 +244,12 @@ var app = new Vue({
         restart: function (r, c) {
             location.reload();
         },
-        
+
         toggleOrientation: function () {
 
             if (this.orientacion == "horizontal") {
                 this.orientacion = "vertical";
-                
+
             } else {
                 this.orientacion = "horizontal";
             }
@@ -291,7 +295,7 @@ document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === 32) {
 
         element = document.querySelectorAll(':hover')
-       
+
         app.toggleOrientation();
 
         let poss = element[element.length - 1];
@@ -300,6 +304,6 @@ document.addEventListener('keydown', function (evt) {
             let c = poss.id.substring(1);
 
             app.hover(r, c);
-        } 
+        }
     }
 });

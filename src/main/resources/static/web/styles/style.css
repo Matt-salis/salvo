@@ -1,5 +1,5 @@
 body {
-    background-image: url('../img/rain.webp'); 
+    background-image: url('../img/rain.webp');
     background-size: cover;
 }
 
@@ -33,37 +33,42 @@ th {
     height: 50px;
 }
 
-th{
+th {
     color: red;
 }
 
 #empty {
     background-color: rgb(180, 180, 180);
+
 }
 
 
 
 
-.Carrier1 { 
+.Carrier1 {
     background-image: url('../img/carrier1.png');
     background-size: contain;
     background-color: red;
-} 
+}
+
 .Carrier2 {
     background-image: url('../img/carrier2.png');
     background-size: contain;
     background-color: red;
 }
+
 .Carrier3 {
     background-image: url('../img/carrier3.png');
     background-size: contain;
     background-color: red;
 }
+
 .Carrier4 {
     background-image: url('../img/carrier4.png');
     background-size: contain;
     background-color: red;
 }
+
 .Carrier5 {
     background-image: url('../img/carrier5.png');
     background-size: contain;
@@ -77,33 +82,30 @@ th{
     background-size: contain;
     background-color: rgb(255, 153, 0);
 }
+
 .Destroyer2 {
     background-image: url('../img/destroyer2.png');
     background-size: contain;
     background-color: rgb(255, 153, 0);
 }
+
 .Destroyer3 {
     background-image: url('../img/destroyer4.png');
     background-size: contain;
     background-color: rgb(255, 153, 0);
 }
-/* .Destroyer4 {
-    background-image: url('../img/destroyer4.png');
-    background-size: contain;
-    background-color: rgb(255, 153, 0);
-} */
-
 
 
 
 .Patrol1 {
-    background-image: url('../img/patrol1.png'); 
-    background-size: cover;  
+    background-image: url('../img/patrol1.png');
+    background-size: cover;
     /* background-color: rgb(255, 238, 0); */
 }
+
 .Patrol2 {
-    background-image: url("../img/patrol2.png"); 
-    background-size: cover;  
+    background-image: url("../img/patrol2.png");
+    background-size: cover;
     /* background-color: rgb(255, 238, 0); */
 }
 
@@ -115,16 +117,19 @@ th{
     background-size: contain;
     background-color: rgb(255, 94, 0);
 }
+
 .Battleship2 {
     background-image: url('../img/battle2.png');
     background-size: contain;
     background-color: rgb(255, 94, 0);
 }
+
 .Battleship3 {
     background-image: url('../img/battle3.png');
     background-size: contain;
     background-color: rgb(255, 94, 0);
 }
+
 .Battleship4 {
     background-image: url('../img/battle4.png');
     background-size: contain;
@@ -138,12 +143,14 @@ th{
     background-size: contain;
     background-color: rgb(255, 153, 0);
 }
-.Submarine2{
+
+.Submarine2 {
     background-image: url('../img/submarino2.png');
     background-size: contain;
     background-color: rgb(255, 153, 0);
 }
-.Submarine3{
+
+.Submarine3 {
     background-image: url('../img/submarino3.png');
     background-size: contain;
     background-color: rgb(255, 153, 0);
@@ -151,9 +158,25 @@ th{
 
 
 
+@keyframes example {
+    from {
+        background-color: red;
+    }
+
+    to {
+        background-color: black;
+    }
+}
 
 
-
+.shot {
+    background-color: red;
+    animation-name: example;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    background-image: url('../img/aim.png');
+    background-size: contain;
+}
 
 .salvo {
     outline: 3px solid red;
@@ -166,40 +189,40 @@ th{
     outline: 5px solid red;
     color: rgb(255, 255, 255);
 }
-.logout{
+
+.logout {
     float: right;
     margin-bottom: 10px;
     margin-right: 3px;
 }
 
-#ships{
+#ships {
     margin-top: 10px;
 }
-.pre-selected{
+
+.pre-selected {
     background-color: orange;
     opacity: 40%;
 }
-.pressed{
+
+.pressed {
     opacity: 40%;
     background: gray;
 }
 
-/* .instructions{
-    background-color: ghostwhite;
-    opacity: 40%;
-    font-size: 10px;
-    width: 300px;
-    position: absolute;
-    top: 20px;
-    left: 10px;
-} */
-
-.flexbox{
+.flexbox {
     width: max-content;
 }
-.selected{
+
+.selected {
     opacity: 60%;
 }
-#reset{
+
+#reset {
     margin-top: 10px;
+}
+#fire{
+    margin-top: 10px;
+    opacity: 40%;
+    background: gray;
 }

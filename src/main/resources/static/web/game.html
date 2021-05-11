@@ -49,6 +49,11 @@
                     <p>in case you want to change te posittions of your ships, click on the restart button</p>
                     <h5>Press "Place Ships" to confirm your posittions</h5>
                     <p>This cannot be undone</p>
+
+                    <h4>Placing salvoes</h4>
+                    <p>After all the ships are placed comes salvo firing!</p>
+                    <p>Each turn you will have to fire 5 shots to your adversary´s ships</p>
+                    <p>You have to click on the right grid to place your 5 salvoes and then click FIRE! to confirm the shots</p>
                 </div>
             </div>
         </div>
@@ -75,7 +80,7 @@
                     </tr>
                     <tr v-for="row in rows2">
                         <th>{{row}}</th>
-                        <td v-for="column in columns" v-bind:id="row + column"></td>
+                        <td v-for="column in columns" v-bind:id="row + column" v-on:click="setSalvoes(row, column)"></td>
                     </tr>
                 </table>
 
@@ -103,25 +108,15 @@
             <p class="btn btn-primary btn-lg btn-block" v-on:click="toggleOrientation">{{orientacion}}</p>
 
         </div>
-        <button class="btn btn-danger btn-lg btn-block" id="reset" v-if="shipLocations < 5"
-            v-on:click="restart()">reset</button>
-        <button class="btn btn-success btn-lg btn-block" v-if="json.length == 5" v-on:click="createShips()">place
-            Ships</button>
+        <button class="btn btn-danger btn-lg btn-block" id="reset" v-if="shipLocations < 5" v-on:click="restart()">reset</button>
+        <button class="btn btn-success btn-lg btn-block" v-if="json.length == 5" v-on:click="createShips()">place Ships</button>
+        <button class="btn btn-danger btn-lg btn-block" id="reset" v-if="nsalvos >= 5 && gameView.ships != null && gameView.ships.length == 5"  v-on:click="createSalvoes()">FIRE!</button>
+        <button class="btn btn-danger btn-lg btn-block" id="fire" v-if="nsalvos < 5 && gameView.ships != null && gameView.ships.length == 5">FIRE!</button>
+        
 
 
 
     </div>
-
-
-    <!-- <div class="instructions">
-                    <h3>How To Place Ships</h3>
-                    <p>To place the ships, you must click on top of the desired type and then click on the grid
-                        the desired
-                        location, the preview on the grid will make it easier for you to see how it will look
-                    </p>
-                    <h5>Press the Spacebar to toggle the orientation of the ships while placing them</h5>
-                    <p>in case you want to change te posittions of your ships, click on the restart button</p>
-                </div> -->
 
 
     <script src="js/game.js"></script>

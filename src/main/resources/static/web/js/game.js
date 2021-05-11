@@ -50,6 +50,12 @@ var app = new Vue({
         possitions: [],
         located: [],
         json: [],
+        turn: 1,
+        salvosPlayer: [],
+        salvosOpponnent: [],
+        salvos: [],
+        nsalvos: 0,
+        jsonSalvo: [],
     },
     methods: {
 
@@ -73,23 +79,26 @@ var app = new Vue({
         },
         salvoLocations: function () {
 
-            var salvosPlayer = app.gameView.salvoes.filter(em => em.playerId == app.currentPlayer.id)
-            var salvosOpponnent = app.gameView.salvoes.filter(em => em.playerId != app.currentPlayer.id)
+            this.salvosPlayer = app.gameView.salvoes.filter(em => em.playerId == app.currentPlayer.id)
+            this.salvosOpponnent = app.gameView.salvoes.filter(em => em.playerId != app.currentPlayer.id)
 
-            for (i = 0; i < salvosPlayer.length; i++) {
-                for (x = 0; x < salvosPlayer[i].locations.length; x++) {
-                    document.getElementById(salvosPlayer[i].locations[x].toLowerCase()).classList.toggle("salvo");
-                    document.getElementById(salvosPlayer[i].locations[x].toLowerCase()).innerHTML = salvosPlayer[i].turn;
+            for (i = 0; i < this.salvosPlayer.length; i++) {
+                for (x = 0; x < this.salvosPlayer[i].locations.length; x++) {
+                    document.getElementById(this.salvosPlayer[i].locations[x].toLowerCase()).classList.toggle("salvo");
+                    document.getElementById(this.salvosPlayer[i].locations[x].toLowerCase()).innerHTML = this.salvosPlayer[i].turn;
                 }
             }
-            for (i = 0; i < salvosOpponnent.length; i++) {
-                for (x = 0; x < salvosOpponnent[i].locations.length; x++) {
-                    document.getElementById(salvosOpponnent[i].locations[x]).classList.toggle("salvoAdversary");
-                    document.getElementById(salvosOpponnent[i].locations[x]).innerHTML = salvosOpponnent[i].turn;
+            for (i = 0; i < this.salvosOpponnent.length; i++) {
+                for (x = 0; x < this.salvosOpponnent[i].locations.length; x++) {
+                    document.getElementById(this.salvosOpponnent[i].locations[x]).classList.toggle("salvoAdversary");
+                    document.getElementById(this.salvosOpponnent[i].locations[x]).innerHTML = this.salvosOpponnent[i].turn;
 
-                    app.OpponnentShots.push(salvosOpponnent[i].locations[x]);
+                    app.OpponnentShots.push(this.salvosOpponnent[i].locations[x]);
                 }
             }
+            this.turn = 1;
+            this.turn += this.salvosPlayer.length;
+            console.log("current turn is: " + this.turn);
 
         },
         playerIndex: function () {
@@ -269,6 +278,57 @@ var app = new Vue({
             this.actualLocations = length;
         },
 
+
+
+        setSalvoes: function (row, column) {
+        let salvoShots = {
+            turn: 0,
+            locations: [],
+        }
+            
+
+            if (this.gameView.ships != null && this.gameView.ships.length == 5) {
+
+                function taken(spot) {
+                    return spot == row.toUpperCase() + column;
+                }
+
+                if (app.salvos.includes(row.toUpperCase() + column)) {
+                    document.getElementById(row + column).classList.toggle('shot', false);
+                    //this.salvos.indexOf(row + column) = null
+                    if (this.salvos.indexOf(row.toUpperCase() + column) > -1) {
+                        this.salvos.splice(this.salvos.indexOf(row.toUpperCase() + column), 1);
+                    }
+                    this.nsalvos -= 1;
+                } else {
+                    if (this.nsalvos < 5) {
+                        if (this.salvosPlayer.length != 0 && !this.salvosPlayer[this.turn - 1].locations.some(taken)) {
+                            document.getElementById(row + column).classList.toggle("shot", true);
+                            this.salvos.push(row.toUpperCase() + column);
+                            this.nsalvos += 1;
+
+                        } else {
+
+                            if (!this.salvos.some(taken)) {
+
+                                document.getElementById(row + column).classList.toggle("shot", true);
+                                this.salvos.push(row.toUpperCase() + column);
+                                this.nsalvos += 1;
+                            }
+                        }
+                    }
+                }
+            }
+        
+            salvoShots.locations = this.salvos;
+            salvoShots.turn = this.turn;
+            this.jsonSalvo.push(salvoShots);
+            console.log(this.salvos);
+            console.log(row.toLowerCase() + column);
+        },
+
+
+
         logout: function () {
             $.post("/api/logout").done(function () {
                 console.log("logged out");
@@ -278,6 +338,19 @@ var app = new Vue({
         mainMenu: function () {
             window.location.replace("/web/games.html");
         },
+
+
+        createSalvoes: function () {
+            $.post({
+                url: "http://localhost:8080/api/games/players/" + gamePlayerId + "/salvos",
+                data: JSON.stringify(app.jsonSalvo),
+                contentType: "application/json"
+            }).done(function () {
+                location.reload();
+            })
+        },
+
+
         createShips: function () {
             $.post({
                 url: "http://localhost:8080/api/games/players/" + gamePlayerId + "/ships",

@@ -30,6 +30,7 @@ body{
 .container{
 background-color: white;
 opacity: 85%;
+border-radius: 5px;
 }
 li.nostyle {
     list-style-type: none;

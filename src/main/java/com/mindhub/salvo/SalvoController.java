@@ -32,6 +32,9 @@ public class SalvoController {
     GamePlayerRepository gamePlayerRepository;
 
     @Autowired
+    SalvoRepository salvoRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -123,6 +126,31 @@ public class SalvoController {
             }else{
                 return new ResponseEntity<>(makeMap("Error","No tenes acceso! inicia sesion"), HttpStatus.UNAUTHORIZED);
             }
+    }
+
+    @PostMapping("/games/players/{gamePlayerId}/salvos")
+    public ResponseEntity<Map<String, Object>> PlaceSalvoes(@PathVariable Long gamePlayerId, @RequestBody Salvo salvo, Authentication authentication){
+        if(!isGuest(authentication)) {
+            Optional<GamePlayer> gamePlayer = gamePlayerRepository.findById(gamePlayerId);
+            if(gamePlayer.isPresent()){
+                Player authPlayer = playerRepository.findByUserName(authentication.getName());
+                if(authPlayer.getId() == gamePlayer.get().getPlayer().getId()){
+                     Salvo salvoOptional = salvoRepository.findByTurn(salvo.getTurn());
+                     if(salvoOptional.equals(null)){
+                         salvoRepository.save(new Salvo(gamePlayer.get(), salvo.getTurn(), salvo.getLocations()));
+                         return new ResponseEntity<>(makeMap("turno",salvo.getTurn()), HttpStatus.CREATED);
+                 }else{
+                     return new ResponseEntity<>(makeMap("Error","este turno ya tiene un salvo"), HttpStatus.FORBIDDEN);
+                 }
+                }else{
+                    return new ResponseEntity<>(makeMap("Error","el gameplayer no corresponde a este juego"), HttpStatus.UNAUTHORIZED);
+                }
+            }else{
+                return new ResponseEntity<>(makeMap("Error","el gameplayer seleccionado no existe"), HttpStatus.UNAUTHORIZED);
+            }
+        }else{
+            return new ResponseEntity<>(makeMap("Error","No tenes acceso! inicia sesion"), HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @PostMapping("/games/players/{gamePlayerId}/ships")

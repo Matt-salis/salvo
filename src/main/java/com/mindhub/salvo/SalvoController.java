@@ -135,10 +135,24 @@ public class SalvoController {
             if(gamePlayer.isPresent()){
                 Player authPlayer = playerRepository.findByUserName(authentication.getName());
                 if(authPlayer.getId() == gamePlayer.get().getPlayer().getId()){
-                     Salvo salvoOptional = salvoRepository.findByTurn(salvo.getTurn());
-                     if(salvoOptional.equals(null)){
-                         salvoRepository.save(new Salvo(gamePlayer.get(), salvo.getTurn(), salvo.getLocations()));
-                         return new ResponseEntity<>(makeMap("turno",salvo.getTurn()), HttpStatus.CREATED);
+                       if(gamePlayer.get().getSalvos().size() + 1 == salvo.getTurn() ){
+                           Optional<GamePlayer> adversario = gamePlayer.get().getGame().getGamePlayers().stream().filter(x -> x.getId() != gamePlayer.get().getId()).findFirst();
+                           if(adversario.isPresent()){
+                                if(salvo.getTurn() == adversario.get().getSalvos().size() || salvo.getTurn() - 1 == adversario.get().getSalvos().size()){
+                                salvoRepository.save(new Salvo(gamePlayer.get(), salvo.getTurn(), salvo.getLocations()));
+                                return new ResponseEntity<>(makeMap("turno", salvo.getTurn()), HttpStatus.CREATED);
+                                }else{
+                                    return new ResponseEntity<>(makeMap("Error","aun no es tu turno"), HttpStatus.FORBIDDEN);
+                                }
+                       }else {
+                               //si aun no tenes adversario...
+                             if(gamePlayer.get().getSalvos().size() < 1){
+                                 salvoRepository.save(new Salvo(gamePlayer.get(), salvo.getTurn(), salvo.getLocations()));
+                                 return new ResponseEntity<>(makeMap("turno", salvo.getTurn()), HttpStatus.CREATED);
+                             } else{
+                                 return new ResponseEntity<>(makeMap("Error","espera a tu adversario"), HttpStatus.FORBIDDEN);
+                             }
+                           }
                  }else{
                      return new ResponseEntity<>(makeMap("Error","este turno ya tiene un salvo"), HttpStatus.FORBIDDEN);
                  }

@@ -191,6 +191,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // if logout is successful, just send a success response
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
+
     }
 
     private void clearAuthenticationAttributes(HttpServletRequest request) {

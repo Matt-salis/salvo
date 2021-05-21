@@ -41,6 +41,11 @@ th {
     background-color: rgb(180, 180, 180);
 
 }
+.hitted{
+    outline-color: blue !important;
+    border-color: blue !important;
+    background-color: blue;
+}
 
 
 
@@ -48,31 +53,31 @@ th {
 .Carrier1 {
     background-image: url('../img/carrier1.png');
     background-size: contain;
-    background-color: red;
+    background-color: black;
 }
 
 .Carrier2 {
     background-image: url('../img/carrier2.png');
     background-size: contain;
-    background-color: red;
+    background-color: black;
 }
 
 .Carrier3 {
     background-image: url('../img/carrier3.png');
     background-size: contain;
-    background-color: red;
+    background-color: black;
 }
 
 .Carrier4 {
     background-image: url('../img/carrier4.png');
     background-size: contain;
-    background-color: red;
+    background-color: black;
 }
 
 .Carrier5 {
     background-image: url('../img/carrier5.png');
     background-size: contain;
-    background-color: red;
+    background-color: black;
 }
 
 
@@ -80,19 +85,19 @@ th {
 .Destroyer1 {
     background-image: url('../img/destroyer1.png');
     background-size: contain;
-    background-color: rgb(255, 153, 0);
+    background-color: black;
 }
 
 .Destroyer2 {
     background-image: url('../img/destroyer2.png');
     background-size: contain;
-    background-color: rgb(255, 153, 0);
+    background-color: black;
 }
 
 .Destroyer3 {
     background-image: url('../img/destroyer4.png');
     background-size: contain;
-    background-color: rgb(255, 153, 0);
+    background-color: black;
 }
 
 
@@ -100,13 +105,13 @@ th {
 .Patrol1 {
     background-image: url('../img/patrol1.png');
     background-size: cover;
-    /* background-color: rgb(255, 238, 0); */
+    background-color: black; 
 }
 
 .Patrol2 {
     background-image: url("../img/patrol2.png");
     background-size: cover;
-    /* background-color: rgb(255, 238, 0); */
+ background-color: black; 
 }
 
 
@@ -115,25 +120,25 @@ th {
 .Battleship1 {
     background-image: url('../img/battle1.png');
     background-size: contain;
-    background-color: rgb(255, 94, 0);
+    background-color: black;
 }
 
 .Battleship2 {
     background-image: url('../img/battle2.png');
     background-size: contain;
-    background-color: rgb(255, 94, 0);
+    background-color: black;
 }
 
 .Battleship3 {
     background-image: url('../img/battle3.png');
     background-size: contain;
-    background-color: rgb(255, 94, 0);
+    background-color: black;
 }
 
 .Battleship4 {
     background-image: url('../img/battle4.png');
     background-size: contain;
-    background-color: rgb(255, 94, 0);
+    background-color: black;
 }
 
 
@@ -141,19 +146,19 @@ th {
 .Submarine1 {
     background-image: url('../img/submarino1.png');
     background-size: contain;
-    background-color: rgb(255, 153, 0);
+    background-color: black;
 }
 
 .Submarine2 {
     background-image: url('../img/submarino2.png');
     background-size: contain;
-    background-color: rgb(255, 153, 0);
+    background-color: black;
 }
 
 .Submarine3 {
     background-image: url('../img/submarino3.png');
     background-size: contain;
-    background-color: rgb(255, 153, 0);
+    background-color: black;
 }
 
 
@@ -225,4 +230,11 @@ th {
     margin-top: 10px;
     opacity: 40%;
     background: gray;
+}
+
+.sunk{
+    outline-color: green !important;
+    border-color: green !important;
+    background-color: green;
+
 }

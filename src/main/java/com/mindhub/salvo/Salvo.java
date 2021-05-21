@@ -1,9 +1,15 @@
 package com.mindhub.salvo;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.http.ResponseEntity;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Entity
 public class Salvo {
@@ -32,6 +38,7 @@ public class Salvo {
         this.turn = turn;
         this.locations = locations;
     }
+
 
     public long getId() {
         return id;
@@ -63,5 +70,27 @@ public class Salvo {
 
     public void setLocations(List<String> locations) {
         this.locations = locations;
+    }
+
+    public  List<String> getHits(){
+        List<String> hits = new ArrayList<>();
+        Optional<GamePlayer> opponent = this.getGamePlayer().getOpponentOpt();
+
+        if(opponent.isPresent()){
+            List<String> ships = opponent.get().getShips().stream().flatMap(s -> s.getLocations().stream()).collect(toList());
+            hits = ships.stream().filter(x -> this.getLocations().contains(x)).collect(Collectors.toList());
+        }
+        return hits;
+    }
+
+    public  List<Ship> getSunkedShips() {
+        Optional<GamePlayer> opponent = this.getGamePlayer().getOpponentOpt();
+        List<Ship> sunks = new ArrayList<>();
+        List<String> allHitsLocations = this.getGamePlayer().getSalvos().stream().filter(a -> a.turn <= this.getTurn()).flatMap(a -> a.getHits().stream()).collect(toList());
+
+        if(opponent.isPresent()){
+           sunks = opponent.get().getShips().stream().filter(x -> allHitsLocations.containsAll(x.getLocations())).collect(toList());
+        }
+        return sunks;
     }
 }

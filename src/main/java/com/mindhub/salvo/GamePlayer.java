@@ -93,6 +93,20 @@ public class GamePlayer {
         public void setSalvos(Set<Salvo> salvos) {
                 this.salvos = salvos;
         }
+
+        public GamePlayer getOpponent(){
+                Optional<GamePlayer> opponent = this.getOpponentOpt();
+                GamePlayer adversary = new GamePlayer();
+                if(opponent.isPresent()){
+                     adversary = opponent.get();
+                }
+                return adversary;
+        }
+        public Optional<GamePlayer> getOpponentOpt(){
+                Optional<GamePlayer> opponent = this.getGame().getGamePlayers().stream().filter(gp -> gp.getId() != this.getId()).findFirst();
+
+                return opponent;
+        }
 }
 
 

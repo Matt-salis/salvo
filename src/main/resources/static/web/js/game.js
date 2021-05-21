@@ -21,12 +21,14 @@ fetch('http://localhost:8080/api/game_view/' + gp)
             app.playerIndex();
             app.salvoLocations();
             app.hittedShips();
+            app.sunks();
 
         }
     }).catch(function (error) {
 
         alert("no puedes ver este juego");
-        window.location.replace("/web/games.html");
+        console.log(error);
+        //window.location.replace("/web/games.html");
 
     })
 
@@ -54,12 +56,15 @@ var app = new Vue({
         turn: 1,
         salvosPlayer: [],
         salvosOpponnent: [],
+        hitsPlayer: [],
         salvos: [],
         nsalvos: 0,
         salvoShots: {
             turn: 0,
             locations: [],
-        }
+        },
+        hitted: [],
+        sunk: [],
     },
     methods: {
 
@@ -85,6 +90,7 @@ var app = new Vue({
 
             this.salvosPlayer = app.gameView.salvoes.filter(em => em.playerId == app.currentPlayer.id)
             this.salvosOpponnent = app.gameView.salvoes.filter(em => em.playerId != app.currentPlayer.id)
+            this.hitsPlayer = app.gameView.hits;
 
             for (i = 0; i < this.salvosPlayer.length; i++) {
                 for (x = 0; x < this.salvosPlayer[i].locations.length; x++) {
@@ -102,10 +108,37 @@ var app = new Vue({
                     app.OpponnentShots.push(this.salvosOpponnent[i].locations[x]);
                 }
             }
+            for (i = 0; i < this.hitsPlayer.length; i++) {
+                for (x = 0; x < this.hitsPlayer[i].hits.length; x++) {
+                    this.hitted.push(this.hitsPlayer[i].hits[x])
+                }
+            }
+            for (x = 0; x < this.hitted.length; x++) {
+                document.getElementById(this.hitted[x].toLowerCase()).classList.toggle("hitted", true)
+            }
             this.turn = 1;
             this.turn += this.salvosPlayer.length;
             console.log("current turn is: " + this.turn);
+            console.log("hitted positions: " + this.hitted);
 
+        },
+        sunks: function () {
+        
+            if (this.gameView.sunks.length >= 1 && this.gameView.sunks[0].ships.length >= 1) {
+                for (i = 0; i < this.gameView.sunks.length; i++) {
+                    for (y = 0; y < this.gameView.sunks[i].ships.length; y++) {
+                        for (x = 0; x < this.gameView.sunks[i].ships[y].locations.length; x++) {
+                            document.getElementById(this.gameView.sunks[i].ships[y].locations[x].toLowerCase()).classList.toggle("hitted", false);
+                            document.getElementById(this.gameView.sunks[i].ships[y].locations[x].toLowerCase()).classList.toggle("sunk", true);
+                        }
+                        if(!this.sunk.includes(this.gameView.sunks[i].ships[y].type)){
+                           this.sunk.push(this.gameView.sunks[i].ships[y].type);
+                        }
+
+                    }
+                }
+                console.log("You Sunk a Ship: " + this.sunk);
+            }
         },
         playerIndex: function () {
             var gamePlayerId = parseInt(gp)
@@ -127,7 +160,7 @@ var app = new Vue({
                         //document.getElementById(app.OpponnentShots[x]).innerHTML = "X";
                         document.getElementById(app.OpponnentShots[x]).classList.toggle("salvo");
                         var turn = document.getElementById(app.OpponnentShots[x]).innerHTML
-                        console.log("hitted!: " + app.OpponnentShots[x] + ", on turn: " + turn)
+                        console.log("the opponent hitted your ship!: " + app.OpponnentShots[x] + ", on turn: " + turn)
                     }
                 }
             }
@@ -291,16 +324,11 @@ var app = new Vue({
 
             if (this.gameView.ships != null && this.gameView.ships.length == 5) {
 
-                function taken(spot) {
-                    return spot == row.toUpperCase() + column;
-                }
 
-                if (app.salvos.includes(row.toUpperCase() + column)) {
+                let index = this.salvos.indexOf(row.toUpperCase() + column)
+                if (index > -1) {
+                    this.salvos.splice(index, 1);
                     document.getElementById(row + column).classList.toggle('shot', false);
-                    //this.salvos.indexOf(row + column) = null
-                    if (this.salvos.indexOf(row.toUpperCase() + column) > -1) {
-                        this.salvos.splice(this.salvos.indexOf(row.toUpperCase() + column), 1);
-                    }
                     this.nsalvos -= 1;
                 } else {
                     if (this.nsalvos < 5) {
@@ -340,7 +368,7 @@ var app = new Vue({
             }).done(function () {
                 location.reload();
             }).fail(function (ajax) {
-                    alert(ajax.responseText)
+                alert(ajax.responseText)
             })
         },
 

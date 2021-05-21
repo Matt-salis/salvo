@@ -110,8 +110,8 @@
         </div>
         <button class="btn btn-danger btn-lg btn-block" id="reset" v-if="shipLocations < 5" v-on:click="restart()">reset</button>
         <button class="btn btn-success btn-lg btn-block" v-if="json.length == 5" v-on:click="createShips()">place Ships</button>
-        <button class="btn btn-danger btn-lg btn-block" id="reset" v-if="nsalvos >= 5 && gameView.ships != null && gameView.ships.length == 5"  v-on:click="createSalvoes()">FIRE!</button>
-        <button class="btn btn-danger btn-lg btn-block" id="fire" v-if="nsalvos < 5 && gameView.ships != null && gameView.ships.length == 5">FIRE!</button>
+        <button class="btn btn-danger btn-lg btn-block" id="reset" v-if="nsalvos >= 5 && gameView.ships != null && gameView.ships.length == 5 && currentAdversary.email != null"  v-on:click="createSalvoes()">FIRE!</button>
+        <button class="btn btn-danger btn-lg btn-block" id="fire" v-if="nsalvos < 5 && gameView.ships != null && gameView.ships.length == 5 ">FIRE!</button>
         
 
 

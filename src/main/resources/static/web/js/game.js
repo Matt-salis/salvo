@@ -27,8 +27,7 @@ fetch('http://localhost:8080/api/game_view/' + gp)
     }).catch(function (error) {
 
         alert("no puedes ver este juego");
-        console.log(error);
-        //window.location.replace("/web/games.html");
+        window.location.replace("/web/games.html");
 
     })
 
@@ -123,18 +122,20 @@ var app = new Vue({
 
         },
         sunks: function () {
-        
-            if (this.gameView.sunks.length >= 1 && this.gameView.sunks[0].ships.length >= 1) {
-                for (i = 0; i < this.gameView.sunks.length; i++) {
-                    for (y = 0; y < this.gameView.sunks[i].ships.length; y++) {
-                        for (x = 0; x < this.gameView.sunks[i].ships[y].locations.length; x++) {
-                            document.getElementById(this.gameView.sunks[i].ships[y].locations[x].toLowerCase()).classList.toggle("hitted", false);
-                            document.getElementById(this.gameView.sunks[i].ships[y].locations[x].toLowerCase()).classList.toggle("sunk", true);
-                        }
-                        if(!this.sunk.includes(this.gameView.sunks[i].ships[y].type)){
-                           this.sunk.push(this.gameView.sunks[i].ships[y].type);
-                        }
 
+            if (this.gameView.sunks.length >= 1) {
+                for (i = 0; i < this.gameView.sunks.length; i++) {
+                    if (this.gameView.sunks[i].ships.length >= 1) {
+                        for (y = 0; y < this.gameView.sunks[i].ships.length; y++) {
+                            for (x = 0; x < this.gameView.sunks[i].ships[y].locations.length; x++) {
+                                document.getElementById(this.gameView.sunks[i].ships[y].locations[x].toLowerCase()).classList.toggle("hitted", false);
+                                document.getElementById(this.gameView.sunks[i].ships[y].locations[x].toLowerCase()).classList.toggle("sunk", true);
+                            }
+                            if (!this.sunk.includes(this.gameView.sunks[i].ships[y].type)) {
+                                this.sunk.push(this.gameView.sunks[i].ships[y].type);
+                            }
+
+                        }
                     }
                 }
                 console.log("You Sunk a Ship: " + this.sunk);
@@ -386,8 +387,8 @@ var app = new Vue({
     },
 })
 
-document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === 32) {
+document.addEventListener('keydown', function (event) {
+    if (event.code == "Space") {
 
         element = document.querySelectorAll(':hover')
 

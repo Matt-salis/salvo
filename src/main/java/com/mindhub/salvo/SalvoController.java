@@ -32,6 +32,9 @@ public class SalvoController {
     SalvoRepository salvoRepository;
 
     @Autowired
+    ScoreRepository scoreRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -133,8 +136,23 @@ public class SalvoController {
                     if (gamePlayer.get().getSalvos().size() + 1 == salvo.getTurn()) {
                         Optional<GamePlayer> adversario = gamePlayer.get().getOpponentOpt();
                         if (adversario.isPresent()) {
-                            if (Math.abs(gamePlayer.get().getSalvos().size() - adversario.get().getSalvos().size()) <= 1) {
-                                salvoRepository.save(new Salvo(gamePlayer.get(), salvo.getTurn(), salvo.getLocations()));
+                            if (gamePlayer.get().gameStatus() == GameStatus.PLACE_SALVOES) {
+
+                                Salvo salvoActual = new Salvo(gamePlayer.get(), salvo.getTurn(), salvo.getLocations());
+                                salvoRepository.save(salvoActual);
+
+                                gamePlayer.get().getSalvos().add(salvoActual);
+                                if (gamePlayer.get().gameStatus() == GameStatus.TIE) {
+                                    scoreRepository.save(new Score(LocalDateTime.now(), gamePlayer.get().getPlayer(), gamePlayer.get().getGame(), 0.5));
+                                    scoreRepository.save(new Score(LocalDateTime.now(), gamePlayer.get().getOpponentOpt().get().getPlayer(), gamePlayer.get().getGame(), 0.5));
+                                } else if (gamePlayer.get().gameStatus() == GameStatus.WIN) {
+                                    scoreRepository.save(new Score(LocalDateTime.now(), gamePlayer.get().getPlayer(), gamePlayer.get().getGame(), 1.0));
+                                    scoreRepository.save(new Score(LocalDateTime.now(), gamePlayer.get().getOpponentOpt().get().getPlayer(), gamePlayer.get().getGame(), 0.0));
+                                } else if (gamePlayer.get().gameStatus() == GameStatus.LOSE) {
+                                    scoreRepository.save(new Score(LocalDateTime.now(), gamePlayer.get().getOpponentOpt().get().getPlayer(), gamePlayer.get().getGame(), 1.0));
+                                    scoreRepository.save(new Score(LocalDateTime.now(), gamePlayer.get().getPlayer(), gamePlayer.get().getGame(), 0.0));
+                                }
+
                                 return new ResponseEntity<>(makeMap("turno", salvo.getTurn()), HttpStatus.CREATED);
                             } else {
                                 return new ResponseEntity<>(makeMap("Error", "aun no es tu turno"), HttpStatus.FORBIDDEN);
@@ -238,6 +256,8 @@ public class SalvoController {
 
     private Map<String, Object> makeGameViewDTO(GamePlayer gamePlayer) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("gameState", gamePlayer.gameStatus());
+        //dto.put("result", this.result(gamePlayer));
         dto.put("id", gamePlayer.getGame().getId());
         dto.put("date", gamePlayer.getGame().getDate());
         dto.put("gamePlayers", gamePlayer.getGame().getGamePlayers().stream().map(this::makeGamePlayerDTO).collect(toList()));

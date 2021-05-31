@@ -74,7 +74,7 @@ public class Salvo {
 
     public  List<String> getHits(){
         List<String> hits = new ArrayList<>();
-        Optional<GamePlayer> opponent = this.getGamePlayer().getOpponentOpt();
+        Optional<GamePlayer> opponent = this.gamePlayer.getOpponentOpt();
 
         if(opponent.isPresent()){
             List<String> ships = opponent.get().getShips().stream().flatMap(s -> s.getLocations().stream()).collect(toList());
@@ -84,7 +84,7 @@ public class Salvo {
     }
 
     public  List<Ship> getSunkedShips() {
-        Optional<GamePlayer> opponent = this.getGamePlayer().getOpponentOpt();
+        Optional<GamePlayer> opponent = this.gamePlayer.getOpponentOpt();
         List<Ship> sunks = new ArrayList<>();
         List<String> allHitsLocations = this.getGamePlayer().getSalvos().stream().filter(a -> a.turn <= this.getTurn()).flatMap(a -> a.getHits().stream()).collect(toList());
 

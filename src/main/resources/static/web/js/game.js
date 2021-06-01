@@ -334,7 +334,7 @@ var app = new Vue({
 
         createSalvoes: function () {
             $.post({
-                url: "http://localhost:8080/api/games/players/" + gamePlayerId + "/salvos",
+                url: "/api/games/players/" + gamePlayerId + "/salvos",
                 data: JSON.stringify(app.salvoShots),
                 contentType: "application/json"
             }).done(function () {
@@ -347,7 +347,7 @@ var app = new Vue({
 
         createShips: function () {
             $.post({
-                url: "http://localhost:8080/api/games/players/" + gamePlayerId + "/ships",
+                url: "/api/games/players/" + gamePlayerId + "/ships",
                 data: JSON.stringify(app.json),
                 contentType: "application/json"
             }).done(function () {
@@ -363,7 +363,7 @@ var app = new Vue({
         },
         getData: function () {
 
-            fetch('http://localhost:8080/api/game_view/' + gp)
+            fetch('/api/game_view/' + gp)
                 .then(function (respuesta) {
                     if (respuesta.status == 200) {
                         return respuesta.json();

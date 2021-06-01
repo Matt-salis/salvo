@@ -358,7 +358,19 @@ var app = new Vue({
         reload: function () {
             if (this.gameView.gameState == "WAIT_OPPONENT") {
                 console.log("Wait opponent");
-                setTimeout(this.getData , 2000);
+                setTimeout(this.getData, 2000);
+            }
+        },
+        gameEnd: function () {
+            if (this.gameView.gameState == "WIN") {
+                alert("You Wined! :)")
+                window.location.replace("/web/games.html");
+            }else if (this.gameView.gameState == "LOSE"){
+                alert("You have lost! :(")
+                window.location.replace("/web/games.html");
+            }else if (this.gameView.gameState == "TIE"){
+                alert("it was a tie! :°")
+                window.location.replace("/web/games.html");
             }
         },
         getData: function () {
@@ -371,7 +383,7 @@ var app = new Vue({
                         throw new Error(respuesta.status);
                     }
                 })
-                .then((data)=> {
+                .then((data) => {
 
                     console.log(data)
                     this.gameView = data;
@@ -382,6 +394,7 @@ var app = new Vue({
                         this.hittedShips();
                         this.sunks();
                         this.reload();
+                        this.gameEnd();
 
 
                     }
@@ -389,13 +402,13 @@ var app = new Vue({
 
                     alert("no puedes ver este juego");
                     console.log(error);
-                   // window.location.replace("/web/games.html");
+                    // window.location.replace("/web/games.html");
 
                 })
         }
 
     },
-    mounted: function(){
+    mounted: function () {
         this.getData();
     },
 })

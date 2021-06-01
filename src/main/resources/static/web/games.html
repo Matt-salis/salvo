@@ -28,8 +28,10 @@
 
 
                 </div>
-            </div>
-            <nav>
+            </div><nav>
+            <div class="row">
+            
+                <div class="col-5">
                 <ol>
                     <li class="nostyle" v-if="player != null">
                         <button type="button" class="btn btn-danger" v-on:click="newGame()">New Game</button>
@@ -48,25 +50,30 @@
                     </li>
 
                 </ol>
-            </nav>
+            </div>
+            
 
-            <table style="width:100%" class="table">
-                <tr>
-                    <th>Player</th>
-                    <th>Total Score</th>
-                    <th>Wins</th>
-                    <th>Lost</th>
-                    <th>Ties</th>
-                </tr>
-                <tr v-for="score in scores">
-                    <td>{{score.player}}</td>
-                    <td>{{score.total}}</td>
-                    <td>{{score.wins}}</td>
-                    <td>{{score.lost}}</td>
-                    <td>{{score.tied}}</td>
-                </tr>
-
-            </table>
+            <div class="col-6">
+                <table style="width:100%" class="table">
+                    <tr>
+                        <th>Player</th>
+                        <th>Total Score</th>
+                        <th>Wins</th>
+                        <th>Lost</th>
+                        <th>Ties</th>
+                    </tr>
+                    <tr v-for="score in scores">
+                        <td>{{score.player}}</td>
+                        <td>{{score.total}}</td>
+                        <td>{{score.wins}}</td>
+                        <td>{{score.lost}}</td>
+                        <td>{{score.tied}}</td>
+                    </tr>
+    
+                </table>
+            </div>
+</nav>
+            </div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

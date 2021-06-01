@@ -1,4 +1,4 @@
-package com.mindhub.salvo;
+package com.mindhub.salvo.models;
 
 import org.hibernate.annotations.GenericGenerator;
 

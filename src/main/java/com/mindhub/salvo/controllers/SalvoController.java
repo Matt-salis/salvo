@@ -1,5 +1,7 @@
-package com.mindhub.salvo;
+package com.mindhub.salvo.controllers;
 
+import com.mindhub.salvo.models.*;
+import com.mindhub.salvo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

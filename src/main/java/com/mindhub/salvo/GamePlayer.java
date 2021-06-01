@@ -119,7 +119,7 @@ public class GamePlayer {
                     } else {
                         if (this.getOpponentOpt().get().getSalvos().stream().noneMatch(em -> em.getTurn() == this.getOpponentOpt().get().getSalvos().size())) {
                             return GameStatus.WAIT_OPPONENT;
-                        } else if(this.getSalvos().size() == this.getOpponentOpt().get().getSalvos().size()){
+                        } else if (this.getSalvos().size() == this.getOpponentOpt().get().getSalvos().size()) {
                             List<Long> mySunks = this.getSalvos().stream().filter(x -> x.getTurn() == this.getSalvos().size()).flatMap(x -> x.getSunkedShips().stream()).map(Ship::getId).collect(toList());
                             List<Long> oppSunks = new ArrayList<>();
 
@@ -129,25 +129,31 @@ public class GamePlayer {
 
                             if (mySunks.size() == 5 && oppSunks.size() == 5) {
                                 return GameStatus.TIE;
-                            } else if ( mySunks.size() == 5) {
+                            } else if (mySunks.size() == 5) {
                                 return GameStatus.WIN;
                             } else if (oppSunks.size() == 5) {
                                 return GameStatus.LOSE;
+                            } else {
+                                return GameStatus.PLACE_SALVOES;
+                            }
+                        } else {
+                            List<Long> mySunks = this.getSalvos().stream().filter(x -> x.getTurn() == this.getSalvos().size()).flatMap(x -> x.getSunkedShips().stream()).map(Ship::getId).collect(toList());
+                            if (mySunks.size() == 5) {
+                                return GameStatus.WAIT_OPPONENT;
+                            }else if(this.getSalvos().size() - this.getOpponentOpt().get().getSalvos().size() == 1){
+                                return GameStatus.WAIT_OPPONENT;
                             }else{
                                 return GameStatus.PLACE_SALVOES;
                             }
-                    }
-                        else {
-                            return GameStatus.PLACE_SALVOES;
                         }
+                    }
                 }
+            } else {
+                return GameStatus.WAIT_OPPONENT;
             }
-        }else{
-            return GameStatus.WAIT_OPPONENT;
         }
-    }
 
-}
+    }
 
 
 }

@@ -27,6 +27,11 @@
             </div>
         </div>
         <div class="row">
+            <div id="turn">
+                <h4 v-if="gameView.gameState == 'WAIT_OPPONENT'">Wait, it´s Your Opponent´s Turn!</h4>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-12">
                 <button class="logout" v-on:click="logout()">Log Out</button>
                 <button class="logout" v-on:click="mainMenu()">Main menu</button>

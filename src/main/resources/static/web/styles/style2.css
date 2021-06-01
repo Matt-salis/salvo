@@ -25,7 +25,9 @@
 }
 body{
     background-image: url("../img/landscape-sky-boat-nature.jpg");
-    background-size: cover;
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
 }
 .container{
 background-color: white;

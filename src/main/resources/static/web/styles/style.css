@@ -1,6 +1,8 @@
 body {
     background-image: url('../img/rain.webp');
-    background-size: cover;
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
 }
 
 #app {
@@ -237,4 +239,11 @@ th {
     border-color: green !important;
     background-color: green;
 
+}
+#turn{
+    margin-left: 20%;
+    color: red;
+    display:flex;
+    align-items: center;
+    text-align: center;
 }

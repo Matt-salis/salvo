@@ -4,34 +4,6 @@ var gamePlayerId = parseInt(gp)
 
 
 
-fetch('http://localhost:8080/api/game_view/' + gp)
-    .then(function (respuesta) {
-        if (respuesta.status == 200) {
-            return respuesta.json();
-        } else {
-            throw new Error(respuesta.status);
-        }
-    })
-    .then(function (data) {
-
-        console.log(data)
-        app.gameView = data;
-        if (app.gameView != null) {
-            app.paintLocations();
-            app.playerIndex();
-            app.salvoLocations();
-            app.hittedShips();
-            app.sunks();
-
-        }
-    }).catch(function (error) {
-
-        alert("no puedes ver este juego");
-        window.location.replace("/web/games.html");
-
-    })
-
-
 var app = new Vue({
     el: '#app',
     data: {
@@ -74,9 +46,9 @@ var app = new Vue({
                 let shp = 1
                 for (i = 0; i < app.gameView.ships[x].locations.length; i++) {
                     if (app.gameView.ships[x].locations[0][0] == app.gameView.ships[x].locations[1][0]) {
-                        document.getElementById(app.gameView.ships[x].locations[i]).classList.toggle(app.gameView.ships[x].type + shp);
+                        document.getElementById(app.gameView.ships[x].locations[i]).classList.add(app.gameView.ships[x].type + shp);
                     } else {
-                        document.getElementById(app.gameView.ships[x].locations[i]).classList.toggle(app.gameView.ships[x].type + shp);
+                        document.getElementById(app.gameView.ships[x].locations[i]).classList.add(app.gameView.ships[x].type + shp);
                         document.getElementById(app.gameView.ships[x].locations[i]).style.transform = 'rotate(90deg)';
                     }
                     shp += 1;
@@ -93,7 +65,7 @@ var app = new Vue({
 
             for (i = 0; i < this.salvosPlayer.length; i++) {
                 for (x = 0; x < this.salvosPlayer[i].locations.length; x++) {
-                    document.getElementById(this.salvosPlayer[i].locations[x].toLowerCase()).classList.toggle("salvo");
+                    document.getElementById(this.salvosPlayer[i].locations[x].toLowerCase()).classList.add("salvo");
                     document.getElementById(this.salvosPlayer[i].locations[x].toLowerCase()).innerHTML = this.salvosPlayer[i].turn;
 
                     app.playerShots.push(this.salvosPlayer[i].locations[x].toLowerCase());
@@ -101,7 +73,7 @@ var app = new Vue({
             }
             for (i = 0; i < this.salvosOpponnent.length; i++) {
                 for (x = 0; x < this.salvosOpponnent[i].locations.length; x++) {
-                    document.getElementById(this.salvosOpponnent[i].locations[x]).classList.toggle("salvoAdversary");
+                    document.getElementById(this.salvosOpponnent[i].locations[x]).classList.add("salvoAdversary");
                     document.getElementById(this.salvosOpponnent[i].locations[x]).innerHTML = this.salvosOpponnent[i].turn;
 
                     app.OpponnentShots.push(this.salvosOpponnent[i].locations[x]);
@@ -161,7 +133,6 @@ var app = new Vue({
                         //document.getElementById(app.OpponnentShots[x]).innerHTML = "X";
                         document.getElementById(app.OpponnentShots[x]).classList.toggle("salvo");
                         var turn = document.getElementById(app.OpponnentShots[x]).innerHTML
-                        console.log("the opponent hitted your ship!: " + app.OpponnentShots[x] + ", on turn: " + turn)
                     }
                 }
             }
@@ -380,10 +351,52 @@ var app = new Vue({
                 data: JSON.stringify(app.json),
                 contentType: "application/json"
             }).done(function () {
-                location.reload();
+                this.getData();
             })
+        },
+
+        reload: function () {
+            if (this.gameView.gameState == "WAIT_OPPONENT") {
+                console.log("Wait opponent");
+                setTimeout(this.getData , 2000);
+            }
+        },
+        getData: function () {
+
+            fetch('http://localhost:8080/api/game_view/' + gp)
+                .then(function (respuesta) {
+                    if (respuesta.status == 200) {
+                        return respuesta.json();
+                    } else {
+                        throw new Error(respuesta.status);
+                    }
+                })
+                .then((data)=> {
+
+                    console.log(data)
+                    this.gameView = data;
+                    if (this.gameView != null) {
+                        this.paintLocations();
+                        this.playerIndex();
+                        this.salvoLocations();
+                        this.hittedShips();
+                        this.sunks();
+                        this.reload();
+
+
+                    }
+                }).catch(function (error) {
+
+                    alert("no puedes ver este juego");
+                    console.log(error);
+                   // window.location.replace("/web/games.html");
+
+                })
         }
 
+    },
+    mounted: function(){
+        this.getData();
     },
 })
 
@@ -403,3 +416,23 @@ document.addEventListener('keydown', function (event) {
         }
     }
 });
+
+
+
+
+
+// if (app.gameView.gameState == "WAIT_OPPONENT") {
+
+//     myFunction();
+// }
+
+// var myVar;
+
+// function myFunction() {
+//     myVar = setTimeout(alertFunc, 2000);
+// }
+
+// function alertFunc() {
+//     location.reload();
+//     console.log("recarga")
+// }

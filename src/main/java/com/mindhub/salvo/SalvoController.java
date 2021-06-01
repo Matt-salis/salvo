@@ -257,7 +257,6 @@ public class SalvoController {
     private Map<String, Object> makeGameViewDTO(GamePlayer gamePlayer) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("gameState", gamePlayer.gameStatus());
-        //dto.put("result", this.result(gamePlayer));
         dto.put("id", gamePlayer.getGame().getId());
         dto.put("date", gamePlayer.getGame().getDate());
         dto.put("gamePlayers", gamePlayer.getGame().getGamePlayers().stream().map(this::makeGamePlayerDTO).collect(toList()));

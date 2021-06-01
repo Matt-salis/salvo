@@ -32,6 +32,11 @@
             </div>
         </div>
         <div class="row">
+            <div id="turn1">
+                <h4 v-if="gameView.gameState == 'PLACE_SALVOES'">Its your turn! place your Salvo</h4>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-12">
                 <button class="logout" v-on:click="logout()">Log Out</button>
                 <button class="logout" v-on:click="mainMenu()">Main menu</button>

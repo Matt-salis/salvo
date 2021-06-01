@@ -247,3 +247,10 @@ th {
     align-items: center;
     text-align: center;
 }
+#turn1{
+    margin-left: 20%;
+    color: black;
+    display:flex;
+    align-items: center;
+    text-align: center;
+}

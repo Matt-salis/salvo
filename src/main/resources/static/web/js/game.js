@@ -351,7 +351,7 @@ var app = new Vue({
                 data: JSON.stringify(app.json),
                 contentType: "application/json"
             }).done(function () {
-                this.getData();
+                location.reload();
             })
         },
 

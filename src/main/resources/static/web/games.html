@@ -28,51 +28,51 @@
 
 
                 </div>
-            </div><nav>
+            </div>
             <div class="row">
-            
-                <div class="col-5">
-                <ol>
-                    <li class="nostyle" v-if="player != null">
-                        <button type="button" class="btn btn-danger" v-on:click="newGame()">New Game</button>
-                    </li>
-                </ol>
-                <ol>
-                    <li v-for="game in games">
-                        {{game.date}} <button class="btn btn-primary"
-                            v-if="player != null && game.gamePlayers.find(em => em.player.id == player.id)"
-                            v-on:click="retGame(game.gamePlayers.find(em => em.player.id == player.id).id)">
-                            Return Game {{game.id}} </button>
-                            <button class="btn btn-warning" v-if="player !=null && game.gamePlayers.find(em => em.player.id != player.id) && game.gamePlayers.length <= 1" v-on:click="joinGame(game.id)">Join Game {{game.id}}</button>
-                        <ul v-for="gamePlayer in game.gamePlayers">
-                            <li>{{gamePlayer.player.email}}</li>
-                        </ul>
-                    </li>
+                <div class="col-6">
+                    <nav>
+                        <ol>
+                            <li class="nostyle" v-if="player != null">
+                                <button type="button" class="btn btn-danger" v-on:click="newGame()">New Game</button>
+                            </li>
+                        </ol>
+                        <ol>
+                            <li v-for="game in games">
+                                {{game.date}} <button class="btn btn-primary"
+                                    v-if="player != null && game.gamePlayers.find(em => em.player.id == player.id)"
+                                    v-on:click="retGame(game.gamePlayers.find(em => em.player.id == player.id).id)">
+                                    Return Game {{game.id}} </button>
+                                <button class="btn btn-warning"
+                                    v-if="player !=null && game.gamePlayers.find(em => em.player.id != player.id) && game.gamePlayers.length <= 1"
+                                    v-on:click="joinGame(game.id)">Join Game {{game.id}}</button>
+                                <ul v-for="gamePlayer in game.gamePlayers">
+                                    <li>{{gamePlayer.player.email}}</li>
+                                </ul>
+                            </li>
 
-                </ol>
-            </div>
-            
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-6">
+                    <table style="width:100%" class="table">
+                        <tr>
+                            <th>Player</th>
+                            <th>Total Score</th>
+                            <th>Wins</th>
+                            <th>Lost</th>
+                            <th>Ties</th>
+                        </tr>
+                        <tr v-for="score in scores">
+                            <td>{{score.player}}</td>
+                            <td>{{score.total}}</td>
+                            <td>{{score.wins}}</td>
+                            <td>{{score.lost}}</td>
+                            <td>{{score.tied}}</td>
+                        </tr>
 
-            <div class="col-6">
-                <table style="width:100%" class="table">
-                    <tr>
-                        <th>Player</th>
-                        <th>Total Score</th>
-                        <th>Wins</th>
-                        <th>Lost</th>
-                        <th>Ties</th>
-                    </tr>
-                    <tr v-for="score in scores">
-                        <td>{{score.player}}</td>
-                        <td>{{score.total}}</td>
-                        <td>{{score.wins}}</td>
-                        <td>{{score.lost}}</td>
-                        <td>{{score.tied}}</td>
-                    </tr>
-    
-                </table>
-            </div>
-</nav>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- Modal -->

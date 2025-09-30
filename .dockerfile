@@ -1,5 +1,5 @@
 # Usa una imagen con Gradle para compilar el proyecto
-FROM gradle:8.7-jdk17 AS build
+FROM gradle:7.6-jdk17 AS build
 
 # Copia los archivos del proyecto al contenedor
 COPY . /home/gradle/project
